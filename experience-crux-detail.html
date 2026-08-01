@@ -2,367 +2,233 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ML & AI Intern — Crux AI | Justin Du</title>
-<meta name="description" content="Case study: ML & AI Intern at Crux AI — bouldering vision pipeline, YOLOv11, pose estimation, LLM coaching reports."/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Crux AI — Jun "Justin" Du</title>
+<meta name="description" content="Turning raw climbing video into structured movement data with YOLOv11 detection and pose estimation, then into coaching advice with an LLM layer."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="paper.css"/>
 <style>
-  :root {
-    --bg: #050508; --bg-s: #0b0b12; --bg-c: #0f0f18; --bg-e: #141420;
-    --accent: #6366f1; --accent-v: #8b5cf6;
-    --t1: #f1f5f9; --t2: #94a3b8; --t3: #475569; --t4: #2d3748;
-    --bd: rgba(255,255,255,0.06); --bd-md: rgba(255,255,255,0.1);
+  .hero{display:flex; flex-wrap:wrap; align-items:center; gap:34px; margin-bottom:14px;}
+  .hero .art{width:150px; height:150px; flex-shrink:0; overflow:visible;}
+  .hero .art *{fill:none; stroke:var(--ink); stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round;}
+  .hero .art .hot{stroke:var(--red);} .hero .art .cool{stroke:var(--blue);}
+  /* the pipeline strip */
+  .flow{display:flex; flex-wrap:wrap; align-items:stretch; gap:10px; margin-bottom:26px;}
+  .flow .step{
+    flex:1 1 150px; border:2px solid var(--ink-4); border-radius:var(--wobble);
+    padding:16px 18px; position:relative;
   }
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t1); -webkit-font-smoothing: antialiased; overflow-x: hidden; margin: 0; }
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 2px; }
-  #scroll-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg,#6366f1,#8b5cf6,#3b82f6); z-index: 9999; transition: width 0.08s linear; }
-  #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; transition: background 0.3s, border-color 0.3s; border-bottom: 1px solid transparent; }
-  #nav.scrolled { background: rgba(5,5,8,0.88); backdrop-filter: blur(20px); border-color: var(--bd); }
-  .nav-link { position: relative; font-size: 13.5px; font-weight: 500; color: var(--t3); transition: color 0.2s; padding-bottom: 2px; }
-  .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: linear-gradient(90deg,#6366f1,#8b5cf6); transition: width 0.25s; }
-  .nav-link:hover, .nav-link.active { color: var(--t1); }
-  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-  .gtext { background: linear-gradient(135deg,#6366f1,#8b5cf6,#3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .content { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-  .card { background: var(--bg-c); border: 1px solid var(--bd); border-radius: 14px; transition: border-color 0.25s; }
-  .card:hover { border-color: rgba(99,102,241,0.22); }
-  .slabel { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6366f1; }
-  .slabel::before { content: ''; display: block; width: 16px; height: 1px; background: #6366f1; }
-  .tag { display: inline-flex; padding: 3px 9px; border-radius: 5px; font-family: 'JetBrains Mono',monospace; font-size: 10.5px; font-weight: 500; background: rgba(99,102,241,0.09); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.18); }
-  .stat-n { font-family: 'Manrope',sans-serif; font-weight: 800; background: linear-gradient(135deg,#818cf8,#a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .impl-card { background: var(--bg-e); border: 1px solid var(--bd); border-radius: 14px; padding: 24px; transition: border-color 0.2s; }
-  .impl-card:hover { border-color: rgba(99,102,241,0.25); }
-  .impl-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.18); flex-shrink: 0; margin-bottom: 16px; }
-  .asset-card { display: flex; align-items: center; gap: 16px; background: var(--bg-c); border: 1px solid var(--bd); border-radius: 12px; padding: 18px 20px; text-decoration: none; transition: border-color 0.2s, background 0.2s, transform 0.2s; }
-  .asset-card:hover { border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.04); transform: translateY(-2px); }
-  .check-item { display: flex; gap: 12px; align-items: flex-start; font-size: 13.5px; line-height: 1.7; color: var(--t3); }
+  .flow .step b{display:block; font-family:var(--note); font-size:14.5px; color:var(--ink); margin-bottom:4px;}
+  .flow .step span{font-family:var(--note); font-size:12.5px; color:var(--ink-3); line-height:1.5;}
+  .flow .arr{display:flex; align-items:center; color:var(--red); font-size:22px; font-family:var(--hand);}
+  @media (max-width:700px){ .flow .arr{transform:rotate(90deg); justify-content:center; width:100%;} }
 </style>
 </head>
 <body>
 
-<div id="scroll-bar"></div>
+<div id="rail"></div>
+<div id="vignette"></div>
+<div id="grain"></div>
 
-<!-- Nav -->
-<nav id="nav">
-  <div class="content flex items-center justify-between py-4">
-    <a href="index.html" class="font-bold text-[18px] tracking-tight" style="font-family:'Manrope',sans-serif;">
-      <span class="gtext">JD</span><span style="color:rgba(99,102,241,0.4)">.</span>
-    </a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="index.html"                  class="nav-link">Home</a>
-      <a href="resume.html"                 class="nav-link">Resume</a>
-      <a href="experience-hrc-detail.html"  class="nav-link">Research</a>
-      <a href="experience-crux-detail.html" class="nav-link active">Internship</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="boil" x="-25%" y="-25%" width="150%" height="150%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="2" result="n">
+      <animate attributeName="seed" values="2;9;16" dur="0.36s" calcMode="discrete" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs></svg>
+
+<header id="topbar">
+  <a href="index.html" class="mark">JD<span>.</span></a>
+  <nav>
+    <a class="tlink" href="index.html">The desk</a>
+    <a class="tlink" href="experience-hrc-detail.html">Hurricane research</a>
+    <a class="tlink on" href="experience-crux-detail.html">Crux AI</a>
+    <a class="tlink" href="resume.html">Resume</a>
+  </nav>
+  <a class="hbtn filled" href="JunDu_s_Resume.pdf" download>Resume PDF</a>
+</header>
+
+<main class="sheet">
+
+  <a class="hbtn" href="index.html" style="margin-bottom:34px;">← back to the desk</a>
+
+  <!-- ═══ Hero ═══ -->
+  <div class="hero rise">
+    <svg class="art boil" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M32 30 C 48 20, 70 24, 76 40 C 82 58, 68 72, 50 70 C 30 68, 22 48, 32 30 Z"/>
+      <ellipse cx="52" cy="46" rx="8" ry="6"/>
+      <path class="hot" d="M12 92 C 20 74, 30 66, 44 62 M44 62 L38 58 M44 62 L40 70"/>
+      <path class="cool" d="M84 22 C 90 30, 92 40, 88 50" opacity=".6"/>
+    </svg>
+    <div>
+      <div class="kicker">Machine learning &amp; AI internship</div>
+      <h1 class="title">Teaching a model<br/>to watch climbing</h1>
+      <p class="where">Crux AI</p>
+      <p class="when">May 2025 – August 2025 · College Station, TX</p>
     </div>
-    <a href="index.html#contact"
-       class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-[13px] font-semibold transition-all"
-       style="border:1px solid rgba(255,255,255,0.1);color:#64748b;"
-       onmouseover="this.style.borderColor='rgba(99,102,241,0.4)';this.style.color='#f1f5f9'"
-       onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#64748b'">Contact</a>
   </div>
-</nav>
 
-<main class="pt-28 pb-24">
-  <div class="content">
+  <p class="lede rise">
+    A climber's phone video already contains everything about the attempt — which holds, in what order,
+    how the body moved between them. None of it is structured. Coaches were reviewing footage by eye:
+    slow, inconsistent, and impossible to compare across sessions.
+    <em>I built the pipeline that makes it structured</em>, then a language layer that makes it advice.
+  </p>
 
-    <!-- Back link -->
-    <a href="index.html" class="inline-flex items-center gap-2 text-[13px] font-medium mb-10 transition-colors"
-       style="color:var(--t3);"
-       onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='var(--t3)'">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back to portfolio
-    </a>
-
-    <!-- Page header -->
-    <div class="mb-3">
-      <span class="slabel">Internship</span>
-    </div>
-    <h1 class="font-bold leading-tight mb-5" style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,5vw,3.2rem);color:var(--t1);">
-      Machine Learning &amp; AI Intern
-    </h1>
-    <div class="flex flex-wrap gap-5 mb-14" style="font-size:13px;color:var(--t3);">
-      <span class="flex items-center gap-2">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        Crux AI
-      </span>
-      <span class="flex items-center gap-2">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        May 2025 – Aug 2025
-      </span>
-      <span class="flex items-center gap-2">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        College Station, TX
-      </span>
-    </div>
-
-    <!-- Challenge + accuracy hero -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
-      <div class="md:col-span-2 card p-8">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--t4);margin-bottom:14px;">The Challenge</div>
-        <p class="mb-4" style="font-size:14px;color:var(--t2);line-height:1.75;">Bouldering coaches lacked an objective, automated way to analyze athlete movement. Video review was done manually, inconsistently, and without structured data. Crux AI needed a vision pipeline that could turn raw climbing footage into coaching-ready insights at scale.</p>
-        <p style="font-size:13px;color:var(--t3);line-height:1.75;">This internship focused on building that pipeline end-to-end — from data labeling and model training to structured output generation and LLM-assisted movement reports.</p>
-      </div>
-      <div class="card flex flex-col items-center justify-center text-center p-8" style="background:linear-gradient(145deg,#0e0e1c,#13131f);">
-        <div class="stat-n text-[3.5rem] mb-1">99%</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--t4);margin-bottom:6px;">Model Accuracy</div>
-        <div style="font-size:11px;color:var(--t4);">Hold detection mAP@0.5</div>
-      </div>
-    </div>
-
-    <!-- End-to-End Pipeline -->
-    <section class="mb-14">
-      <div class="flex items-center gap-4 mb-8">
-        <div class="flex-1 h-px" style="background:var(--bd);"></div>
-        <h2 class="font-bold text-[20px] whitespace-nowrap" style="font-family:'Manrope',sans-serif;color:var(--t1);">End-to-End Vision Pipeline</h2>
-        <div class="flex-1 h-px" style="background:var(--bd);"></div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        <div>
-          <p class="mb-6" style="font-size:14px;color:var(--t2);line-height:1.75;">I designed an end-to-end system combining two YOLOv11 models: hold detection (jugs, crimps, slopers, pockets, volumes) and athlete pose estimation. The pipeline syncs hold detections with pose keypoints to map how an athlete moves across the wall over time.</p>
-          <div class="space-y-4">
-            <div class="check-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              <div>
-                <span class="font-semibold" style="color:var(--t1);font-size:14px;">Precision Labeling</span>
-                <p style="font-size:13px;color:var(--t3);margin-top:3px;">Curated and labeled bouldering footage in Roboflow covering 5 hold classes, with bounding-box annotations, edge cases, and augmentation strategies.</p>
-              </div>
-            </div>
-            <div class="check-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              <div>
-                <span class="font-semibold" style="color:var(--t1);font-size:14px;">Pose Synchronization</span>
-                <p style="font-size:13px;color:var(--t3);margin-top:3px;">Frame-level sync of 17-keypoint pose skeleton with hold detections, enabling grip-to-joint distance analytics and movement path visualization.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card overflow-hidden" style="border-radius:14px;">
-          <img src="images/onboarding.png" alt="Crux AI onboarding interface" class="w-full object-cover" loading="lazy" style="display:block;"/>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technical Implementation -->
-    <section class="mb-14">
-      <h2 class="font-bold text-[20px] mb-6" style="font-family:'Manrope',sans-serif;color:var(--t1);">Technical Implementation</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="impl-card">
-          <div class="impl-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-          </div>
-          <h3 class="font-bold text-[15px] mb-2" style="color:var(--t1);">Automated Video Processing</h3>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Raw climbing video is ingested and processed frame-by-frame using OpenCV. Hold detection and pose estimation run in parallel, then aggregate into per-rep structured JSON including hold sequence, movement distance, joint trajectories, and timing statistics.</p>
-        </div>
-        <div class="impl-card">
-          <div class="impl-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          </div>
-          <h3 class="font-bold text-[15px] mb-2" style="color:var(--t1);">LLM-Assisted Analysis</h3>
-          <p style="font-size:13px;color:var(--t3);line-height:1.7;">Structured metrics feed a LangChain-powered pipeline that generates natural-language coaching notes. Movement pattern summaries, efficiency scores, and hold transition analyses are wrapped into Excel-based athlete reports for coaches.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Impact Snapshot -->
-    <section class="mb-14">
-      <h2 class="font-bold text-[20px] mb-6" style="font-family:'Manrope',sans-serif;color:var(--t1);">Impact Snapshot</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="card p-6 text-center">
-          <div class="stat-n text-[2.2rem] mb-1">99%</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4);">Detection Accuracy</div>
-        </div>
-        <div class="card p-6 text-center">
-          <div class="stat-n text-[2.2rem] mb-1">5</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4);">Hold Classes</div>
-        </div>
-        <div class="card p-6 text-center">
-          <div class="stat-n text-[2.2rem] mb-1">17</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4);">Pose Keypoints</div>
-        </div>
-        <div class="card p-6 text-center">
-          <div class="stat-n text-[2.2rem] mb-1">14ms</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--t4);">Inference Latency</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Ownership and Delivery -->
-    <section class="mb-14">
-      <h2 class="font-bold text-[20px] mb-6" style="font-family:'Manrope',sans-serif;color:var(--t1);">Ownership &amp; Delivery</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="impl-card">
-          <h3 class="font-bold text-[15px] mb-4" style="color:var(--t1);">What I Owned</h3>
-          <div class="space-y-3">
-            <div class="check-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              Data curation and labeling strategy for robust hold classes.
-            </div>
-            <div class="check-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              Model training, evaluation, and experiment iteration loop.
-            </div>
-            <div class="check-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              Post-processing pipeline for frame-level metrics and structured outputs.
-            </div>
-          </div>
-        </div>
-        <div class="impl-card">
-          <h3 class="font-bold text-[15px] mb-4" style="color:var(--t1);">What I Delivered</h3>
-          <div class="space-y-3">
-            <div class="check-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              Reusable pipeline converting raw climbing videos into coaching-ready insights.
-            </div>
-            <div class="check-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              Annotated and raw media outputs for model validation and coach review.
-            </div>
-            <div class="check-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
-              LLM-assisted report generation integrated with Excel-based workflows.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tech Stack -->
-    <section class="mb-14">
-      <h2 class="font-bold text-[20px] mb-5" style="font-family:'Manrope',sans-serif;color:var(--t1);">Tech Stack</h2>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">PyTorch</span>
-        <span class="tag">Ultralytics YOLO</span>
-        <span class="tag">Roboflow</span>
-        <span class="tag">OpenCV</span>
-        <span class="tag">LangChain</span>
-        <span class="tag">Python</span>
-      </div>
-    </section>
-
-    <!-- Model Card -->
-    <section class="mb-14">
-      <div class="card" style="border-left:2px solid #6366f1;">
-        <div class="p-7">
-          <div class="flex items-center gap-3 mb-5">
-            <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-            </div>
-            <h2 class="font-bold text-[17px]" style="font-family:'Manrope',sans-serif;color:var(--t1);">Model Card</h2>
-          </div>
-          <div class="rounded-xl p-5 overflow-x-auto" style="background:#0a0a10;border:1px solid rgba(255,255,255,0.04);">
-            <div class="flex items-center gap-1.5 mb-3">
-              <div style="width:9px;height:9px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
-              <div style="width:9px;height:9px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
-              <div style="width:9px;height:9px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);margin-left:8px;">model_card.json</span>
-            </div>
-<pre style="font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.8;color:var(--t3);margin:0;"><span style="color:var(--t4);">{</span>
-  <span style="color:#818cf8;">"project"</span><span style="color:var(--t4);">:</span> <span style="color:#34d399;">"Crux-Bouldering-v1"</span><span style="color:var(--t4);">,</span>
-  <span style="color:#818cf8;">"base_architecture"</span><span style="color:var(--t4);">:</span> <span style="color:#34d399;">"YOLOv11-Nano"</span><span style="color:var(--t4);">,</span>
-  <span style="color:#818cf8;">"input_resolution"</span><span style="color:var(--t4);">:</span> <span style="color:#fbbf24;">[640, 640]</span><span style="color:var(--t4);">,</span>
-  <span style="color:#818cf8;">"mAP@.5"</span><span style="color:var(--t4);">:</span> <span style="color:#60a5fa;">0.992</span><span style="color:var(--t4);">,</span>
-  <span style="color:#818cf8;">"inference_latency"</span><span style="color:var(--t4);">:</span> <span style="color:#34d399;">"14ms (RTX 4090)"</span><span style="color:var(--t4);">,</span>
-  <span style="color:#818cf8;">"classes"</span><span style="color:var(--t4);">:</span> <span style="color:#fbbf24;">["jug", "crimp", "sloper", "pocket", "volume"]</span><span style="color:var(--t4);">,</span>
-  <span style="color:#818cf8;">"augmentation"</span><span style="color:var(--t4);">:</span> <span style="color:#fbbf24;">["mosaic", "mixup", "hsv_jitter"]</span>
-<span style="color:var(--t4);">}</span></pre>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Project Assets -->
-    <section class="mb-14">
-      <h2 class="font-bold text-[20px] mb-5" style="font-family:'Manrope',sans-serif;color:var(--t1);">Project Assets</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <a href="annotatedVideo.mp4" target="_blank" rel="noopener noreferrer" class="asset-card group">
-          <div style="width:40px;height:40px;border-radius:11px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.2s;" class="group-hover:scale-110">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-          </div>
-          <div>
-            <div class="font-semibold text-[13.5px]" style="color:var(--t1);">Annotated Video</div>
-            <div style="font-size:12px;color:var(--t3);">Hold detection + pose overlay (MP4)</div>
-          </div>
-        </a>
-        <a href="originalVideo.mp4" target="_blank" rel="noopener noreferrer" class="asset-card group">
-          <div style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,0.04);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.2s;" class="group-hover:scale-110">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-          </div>
-          <div>
-            <div class="font-semibold text-[13.5px]" style="color:var(--t1);">Original Video</div>
-            <div style="font-size:12px;color:var(--t3);">Raw climbing footage (MP4)</div>
-          </div>
-        </a>
-        <a href="images/Frontpage.png" target="_blank" rel="noopener noreferrer" class="asset-card group">
-          <div style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,0.04);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.2s;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          </div>
-          <div>
-            <div class="font-semibold text-[13.5px]" style="color:var(--t1);">App Frontpage</div>
-            <div style="font-size:12px;color:var(--t3);">Interface screenshot (PNG)</div>
-          </div>
-        </a>
-        <a href="images/readliness.png" target="_blank" rel="noopener noreferrer" class="asset-card group">
-          <div style="width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,0.04);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.2s;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          </div>
-          <div>
-            <div class="font-semibold text-[13.5px]" style="color:var(--t1);">Readiness View</div>
-            <div style="font-size:12px;color:var(--t3);">Athlete readiness dashboard (PNG)</div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Prev/Next navigation -->
-    <div class="flex justify-between items-center pt-8" style="border-top:1px solid var(--bd);">
-      <a href="index.html" class="inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
-         style="color:var(--t3);"
-         onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='var(--t3)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        Back to Home
-      </a>
-      <a href="experience-hrc-detail.html" class="inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
-         style="color:var(--t3);"
-         onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='var(--t3)'">
-        Research at HRC
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-
+  <div class="nums rise">
+    <div class="num"><b>7k+</b><span>images annotated</span></div>
+    <div class="num"><b>~95%</b><span>hold detection accuracy</span></div>
+    <div class="num"><b>5</b><span>hold classes</span></div>
+    <div class="num"><b>17</b><span>pose keypoints</span></div>
   </div>
+
+  <!-- ═══ Pipeline ═══ -->
+  <div class="rule rise"><h2 class="head">The pipeline</h2></div>
+
+  <div class="flow rise">
+    <div class="step"><b>1 · Video in</b><span>Raw climbing footage, ingested and walked frame by frame with OpenCV.</span></div>
+    <div class="arr">→</div>
+    <div class="step"><b>2 · Two models</b><span>YOLOv11 hold detection and pose estimation run in parallel on every frame.</span></div>
+    <div class="arr">→</div>
+    <div class="step"><b>3 · Sync</b><span>Hold boxes matched against the 17-keypoint skeleton to map the body across the wall.</span></div>
+    <div class="arr">→</div>
+    <div class="step"><b>4 · Structure</b><span>Per-attempt JSON: hold sequence, movement distance, joint trajectories, timing.</span></div>
+    <div class="arr">→</div>
+    <div class="step"><b>5 · Words</b><span>An LLM layer turns those numbers into coaching notes a human can act on.</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card rise">
+      <h3 class="sub">Precision labelling</h3>
+      <p style="font-size:14.5px;">
+        Curated and annotated 7,000+ domain-specific images in Roboflow across 5 hold classes — jugs,
+        crimps, slopers, pockets, volumes — with deliberate attention to edge cases and an augmentation
+        strategy for the lighting chaos of a real gym.
+      </p>
+    </div>
+    <div class="card alt rise">
+      <h3 class="sub">Pose synchronisation</h3>
+      <p style="font-size:14.5px;">
+        Frame-level sync of the 17-keypoint pose skeleton with hold detections, which is what makes
+        grip-to-joint distance analytics and movement-path visualisation possible at all.
+      </p>
+    </div>
+    <div class="card rise">
+      <h3 class="sub">Shipping it</h3>
+      <p style="font-size:14.5px;">
+        Dockerized inference services deployed on Microsoft Azure Container Apps, with MLOps practices
+        so the models serve efficiently instead of living in a notebook.
+      </p>
+    </div>
+    <div class="card alt rise">
+      <h3 class="sub">The language layer</h3>
+      <p style="font-size:14.5px;">
+        Structured metrics feed a prompt-engineered generative-AI pipeline producing strategy-level
+        feedback on efficiency, route optimisation and technique — wrapped into athlete reports for coaches.
+      </p>
+    </div>
+  </div>
+
+  <figure class="rise">
+    <img src="images/onboarding.png" alt="Crux AI onboarding interface" loading="lazy"/>
+    <figcaption>Onboarding — where an athlete's session starts.</figcaption>
+  </figure>
+
+  <figure class="rise">
+    <img src="images/coachingandtimeline.png" alt="Coaching view and movement timeline" loading="lazy"/>
+    <figcaption>The coaching view: hold transitions laid out on a timeline.</figcaption>
+  </figure>
+
+  <!-- ═══ Model card ═══ -->
+  <div class="rule rise"><h2 class="head">Model card</h2></div>
+
+  <div class="code rise">
+    <div class="fname">model_card.json</div>
+<pre><span class="c">{</span>
+  <span class="k">"project"</span>: <span class="v">"Crux-Bouldering-v1"</span>,
+  <span class="k">"base_architecture"</span>: <span class="v">"YOLOv11-Nano"</span>,
+  <span class="k">"input_resolution"</span>: <span class="n">[640, 640]</span>,
+  <span class="k">"mAP@.5"</span>: <span class="n">0.95</span>,
+  <span class="k">"inference_latency"</span>: <span class="v">"14ms (RTX 4090)"</span>,
+  <span class="k">"classes"</span>: <span class="n">["jug", "crimp", "sloper", "pocket", "volume"]</span>,
+  <span class="k">"augmentation"</span>: <span class="n">["mosaic", "mixup", "hsv_jitter"]</span>,
+  <span class="k">"serving"</span>: <span class="v">"Docker → Azure Container Apps"</span>
+<span class="c">}</span></pre>
+  </div>
+
+  <!-- ═══ Ownership ═══ -->
+  <div class="rule rise"><h2 class="head">What was mine</h2></div>
+
+  <div class="grid2">
+    <div class="rise">
+      <h3 class="sub">Owned</h3>
+      <ul class="checks">
+        <li>Data curation and the labelling strategy that made the hold classes robust.</li>
+        <li>Model training, evaluation, and the experiment iteration loop.</li>
+        <li>Post-processing pipeline for frame-level metrics and structured outputs.</li>
+      </ul>
+    </div>
+    <div class="rise">
+      <h3 class="sub">Delivered</h3>
+      <ul class="checks blue">
+        <li>A reusable pipeline converting raw climbing video into coaching-ready insight.</li>
+        <li>Annotated and raw media outputs for model validation and coach review.</li>
+        <li>LLM-assisted report generation integrated with the coaches' existing Excel workflow.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rise">
+    <h3 class="sub">Tools</h3>
+    <div class="chips" data-chips="PyTorch,Ultralytics YOLOv11,Pose Estimation,Roboflow,OpenCV,Docker,Azure Container Apps,LLM Integration,Python"></div>
+  </div>
+
+  <!-- ═══ Assets ═══ -->
+  <div class="rule rise"><h2 class="head">Project assets</h2></div>
+
+  <div class="grid2 rise">
+    <a class="asset" href="annotatedVideo.mp4" target="_blank" rel="noopener">
+      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
+      <span><b>Annotated video</b><span>Hold detection + pose overlay</span></span>
+    </a>
+    <a class="asset" href="originalVideo.mp4" target="_blank" rel="noopener">
+      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span>
+      <span><b>Original video</b><span>Raw climbing footage</span></span>
+    </a>
+    <a class="asset" href="images/Frontpage.png" target="_blank" rel="noopener">
+      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
+      <span><b>App frontpage</b><span>Interface screenshot</span></span>
+    </a>
+    <a class="asset" href="images/image.png" target="_blank" rel="noopener">
+      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
+      <span><b>Detection sample</b><span>Model output still</span></span>
+    </a>
+  </div>
+
+  <div class="aside rise">
+    The model was never the product. The product was a coach opening a report on Monday morning and
+    knowing which move cost their athlete the send.
+  </div>
+
+  <!-- ═══ Pager ═══ -->
+  <div class="pager">
+    <a class="hbtn" href="index.html">← back to the desk</a>
+    <a class="hbtn" href="experience-hrc-detail.html">Hurricane research →</a>
+  </div>
+
 </main>
 
-<!-- Footer -->
-<footer style="background:#030305;border-top:1px solid rgba(255,255,255,0.04);">
-  <div class="content flex flex-col sm:flex-row items-center justify-between gap-4 py-8">
-    <div class="flex items-center gap-3">
-      <span class="font-bold text-[15px] gtext" style="font-family:'Manrope',sans-serif;">JD.</span>
-      <span style="font-size:13px;color:var(--t4);">© <span id="year"></span> Jun Du. Built for the digital laboratory.</span>
-    </div>
-    <div class="flex items-center gap-6">
-      <a href="https://github.com/Carkappa" target="_blank" rel="noopener noreferrer" class="text-[13px] transition-colors" style="color:var(--t4);" onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t4)'">GitHub</a>
-      <a href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener noreferrer" class="text-[13px] transition-colors" style="color:var(--t4);" onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t4)'">LinkedIn</a>
-    </div>
-  </div>
+<footer class="foot">
+  <span>© <span id="year"></span> Jun Du</span>
+  <a href="mailto:justindujun@gmail.com">justindujun@gmail.com</a>
+  <a href="https://github.com/Carkappa" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-const bar = document.getElementById('scroll-bar');
-window.addEventListener('scroll', () => {
-  const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-  bar.style.width = (p * 100) + '%';
-}, { passive: true });
-window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40), { passive: true });
-document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
-</script>
+<script src="paper.js"></script>
 </body>
 </html>

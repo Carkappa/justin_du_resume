@@ -2,286 +2,188 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Research Assistant — HRC | Justin Du</title>
-<meta name="description" content="Undergraduate research at Texas A&M HRC: YOLO11 computer vision models for post-hurricane physical disorder detection."/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hurricane Research — Jun "Justin" Du</title>
+<meta name="description" content="Teaching a computer vision model to read physical disorder off post-hurricane street imagery. Undergraduate research at the Texas A&M Hazard Reduction &amp; Recovery Center."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="paper.css"/>
 <style>
-  :root {
-    --bg: #050508; --bg-s: #0b0b12; --bg-c: #0f0f18; --bg-e: #141420;
-    --accent: #6366f1; --accent-v: #8b5cf6;
-    --t1: #f1f5f9; --t2: #94a3b8; --t3: #475569; --t4: #2d3748;
-    --bd: rgba(255,255,255,0.06); --bd-md: rgba(255,255,255,0.1);
-  }
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t1); -webkit-font-smoothing: antialiased; overflow-x: hidden; margin: 0; }
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 2px; }
-  #scroll-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg,#6366f1,#8b5cf6,#3b82f6); z-index: 9999; transition: width 0.08s linear; }
-  #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; transition: background 0.3s, border-color 0.3s; border-bottom: 1px solid transparent; }
-  #nav.scrolled { background: rgba(5,5,8,0.88); backdrop-filter: blur(20px); border-color: var(--bd); }
-  .nav-link { position: relative; font-size: 13.5px; font-weight: 500; color: var(--t3); transition: color 0.2s; padding-bottom: 2px; }
-  .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: linear-gradient(90deg,#6366f1,#8b5cf6); transition: width 0.25s; }
-  .nav-link:hover, .nav-link.active { color: var(--t1); }
-  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-  .gtext { background: linear-gradient(135deg,#6366f1,#8b5cf6,#3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .content { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-  .card { background: var(--bg-c); border: 1px solid var(--bd); border-radius: 14px; transition: border-color 0.25s; }
-  .slabel { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6366f1; }
-  .slabel::before { content: ''; display: block; width: 16px; height: 1px; background: #6366f1; }
-  .tag { display: inline-flex; padding: 3px 9px; border-radius: 5px; font-family: 'JetBrains Mono',monospace; font-size: 10.5px; font-weight: 500; background: rgba(99,102,241,0.09); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.18); }
-  .stat-n { font-family: 'Manrope',sans-serif; font-weight: 800; background: linear-gradient(135deg,#818cf8,#a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .bullet { display: flex; gap: 12px; font-size: 13.5px; line-height: 1.75; color: var(--t3); }
-  .bullet::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: #6366f1; flex-shrink: 0; margin-top: 8px; }
-  .impl-card { background: var(--bg-e); border: 1px solid var(--bd); border-radius: 12px; padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start; transition: border-color 0.2s; }
-  .impl-card:hover { border-color: rgba(99,102,241,0.25); }
-  .impl-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.18); flex-shrink: 0; }
-  .outcome-card { background: var(--bg-e); border: 1px solid var(--bd); border-radius: 12px; padding: 18px; display: flex; gap: 12px; align-items: flex-start; transition: border-color 0.2s; }
-  .outcome-card:hover { border-color: rgba(99,102,241,0.25); }
+  .hero{display:flex; flex-wrap:wrap; align-items:center; gap:34px; margin-bottom:14px;}
+  .hero .art{width:150px; height:150px; flex-shrink:0; overflow:visible;}
+  .hero .art *{fill:none; stroke:var(--ink); stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round;}
+  .hero .art .hot{stroke:var(--red);} .hero .art .leaf{stroke:var(--green);}
+  .catrow{display:flex; flex-wrap:wrap; gap:9px; margin-top:6px;}
 </style>
 </head>
 <body>
 
-<div id="scroll-bar"></div>
+<div id="rail"></div>
+<div id="vignette"></div>
+<div id="grain"></div>
 
-<!-- Nav -->
-<nav id="nav">
-  <div class="content flex items-center justify-between py-4">
-    <a href="index.html" class="font-bold text-[18px] tracking-tight" style="font-family:'Manrope',sans-serif;">
-      <span class="gtext">JD</span><span style="color:rgba(99,102,241,0.4)">.</span>
-    </a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="index.html"                  class="nav-link">Home</a>
-      <a href="resume.html"                 class="nav-link">Resume</a>
-      <a href="experience-hrc-detail.html"  class="nav-link active">Research</a>
-      <a href="experience-crux-detail.html" class="nav-link">Internship</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="boil" x="-25%" y="-25%" width="150%" height="150%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="2" result="n">
+      <animate attributeName="seed" values="2;9;16" dur="0.36s" calcMode="discrete" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs></svg>
+
+<header id="topbar">
+  <a href="index.html" class="mark">JD<span>.</span></a>
+  <nav>
+    <a class="tlink" href="index.html">The desk</a>
+    <a class="tlink on" href="experience-hrc-detail.html">Hurricane research</a>
+    <a class="tlink" href="experience-crux-detail.html">Crux AI</a>
+    <a class="tlink" href="resume.html">Resume</a>
+  </nav>
+  <a class="hbtn filled" href="JunDu_s_Resume.pdf" download>Resume PDF</a>
+</header>
+
+<main class="sheet">
+
+  <a class="hbtn" href="index.html" style="margin-bottom:34px;">← back to the desk</a>
+
+  <!-- ═══ Hero ═══ -->
+  <div class="hero rise">
+    <svg class="art boil" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M42 92 L52 26"/>
+      <path d="M46 34 L84 26 L86 46 L48 54 Z"/>
+      <path class="hot" d="M54 38 L60 44 M60 38 L54 44 M68 36 L74 42 M74 36 L68 42"/>
+      <path d="M14 92 C 26 88, 40 88, 52 92"/>
+      <path class="leaf" d="M18 86 C 22 80, 28 80, 30 86" opacity=".8"/>
+      <path d="M62 92 C 70 86, 80 86, 88 92"/>
+      <path d="M74 84 L80 80 L84 86" opacity=".6"/>
+    </svg>
+    <div>
+      <div class="kicker">Undergraduate research</div>
+      <h1 class="title">Reading a storm<br/>off the street</h1>
+      <p class="where">Texas A&amp;M Hazard Reduction &amp; Recovery Center</p>
+      <p class="when">August 2025 – December 2025 · College Station, TX</p>
     </div>
-    <a href="index.html#contact"
-       class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-[13px] font-semibold transition-all"
-       style="border:1px solid rgba(255,255,255,0.1);color:#64748b;"
-       onmouseover="this.style.borderColor='rgba(99,102,241,0.4)';this.style.color='#f1f5f9'"
-       onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#64748b'">Contact</a>
   </div>
-</nav>
 
-<main class="pt-28 pb-24">
-  <div class="content">
+  <p class="lede rise">
+    After a hurricane, recovery money follows evidence — and evidence usually means somebody
+    driving the streets counting debris by hand. It's slow, expensive, and two surveyors rarely
+    agree. <em>We taught a model to read it off street-level imagery instead.</em>
+  </p>
 
-    <!-- Back link -->
-    <a href="index.html" class="inline-flex items-center gap-2 text-[13px] font-medium mb-10 transition-colors"
-       style="color:var(--t3);"
-       onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='var(--t3)'">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back to portfolio
-    </a>
-
-    <!-- Page header -->
-    <div class="mb-3">
-      <span class="slabel">Research Experience</span>
-    </div>
-    <h1 class="font-bold leading-tight mb-5" style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,5vw,3.2rem);color:var(--t1);">
-      Undergraduate Research Assistant
-    </h1>
-    <div class="flex flex-wrap gap-5 mb-14" style="font-size:13px;color:var(--t3);">
-      <span class="flex items-center gap-2">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Texas A&amp;M HRC
-      </span>
-      <span class="flex items-center gap-2">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        College Station, TX
-      </span>
-      <span class="flex items-center gap-2">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Aug 2025 – Dec 2025
-      </span>
-    </div>
-
-    <!-- Model architecture card -->
-    <div class="card mb-14 p-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="md:col-span-2">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--t4);margin-bottom:16px;">Model Architecture</div>
-          <p class="mb-6" style="font-size:14px;color:var(--t2);line-height:1.75;">
-            YOLO11 object detection trained on street-level post-hurricane imagery to identify physical disorder indicators — debris, structural damage, abandoned property, and blight — across 8 disorder categories.
-          </p>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="card p-5 text-center" style="border-radius:10px;">
-              <div class="stat-n text-[2.4rem]">80%</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--t4);margin-top:4px;">mAP Score</div>
-            </div>
-            <div class="card p-5 text-center" style="border-radius:10px;">
-              <div class="stat-n text-[2.4rem]">~3k</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--t4);margin-top:4px;">Training Images</div>
-            </div>
-          </div>
-        </div>
-        <div class="rounded-xl p-5 overflow-x-auto" style="background:#0a0a10;border:1px solid rgba(255,255,255,0.04);">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);margin-bottom:8px;"># train_config.yaml</div>
-          <pre style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.8;"><span style="color:#818cf8;">model</span><span style="color:var(--t3);">:</span> <span style="color:#34d399;">yolo11n.pt</span>
-<span style="color:#818cf8;">epochs</span><span style="color:var(--t3);">:</span> <span style="color:#fbbf24;">100</span>
-<span style="color:#818cf8;">imgsz</span><span style="color:var(--t3);">:</span> <span style="color:#fbbf24;">640</span>
-<span style="color:#818cf8;">batch</span><span style="color:var(--t3);">:</span> <span style="color:#fbbf24;">16</span>
-<span style="color:#818cf8;">device</span><span style="color:var(--t3);">:</span> <span style="color:#34d399;">0 (A100)</span>
-<span style="color:#818cf8;">optimizer</span><span style="color:var(--t3);">:</span> <span style="color:#34d399;">SGD</span>
-<span style="color:var(--t4);">metrics:</span>
-  <span style="color:#fbbf24;">map50</span><span style="color:var(--t3);">:</span> <span style="color:#60a5fa;">0.800</span>
-  <span style="color:#fbbf24;">precision</span><span style="color:var(--t3);">:</span> <span style="color:#60a5fa;">0.485</span></pre>
-        </div>
-      </div>
-    </div>
-
-    <!-- Content grid: sidebar + article -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-14">
-
-      <!-- Sidebar -->
-      <aside class="md:col-span-3 space-y-8">
-        <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--t4);margin-bottom:12px;">Technologies</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag">YOLO11</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">NVIDIA A100</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">WandB</span>
-          </div>
-        </div>
-        <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--t4);margin-bottom:12px;">Dataset Stats</div>
-          <div class="space-y-3">
-            <div class="flex justify-between items-center" style="font-size:13px;">
-              <span style="color:var(--t3);">Images</span>
-              <span class="font-semibold" style="color:var(--t1);">3,142</span>
-            </div>
-            <div class="flex justify-between items-center" style="font-size:13px;">
-              <span style="color:var(--t3);">Annotations</span>
-              <span class="font-semibold" style="color:var(--t1);">5,200+</span>
-            </div>
-            <div class="flex justify-between items-center" style="font-size:13px;">
-              <span style="color:var(--t3);">Classes</span>
-              <span class="font-semibold" style="color:var(--t1);">8 Categories</span>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- Main article -->
-      <article class="md:col-span-9 space-y-12">
-
-        <!-- Research Objective -->
-        <section>
-          <h2 class="font-bold text-[18px] mb-4" style="font-family:'Manrope',sans-serif;color:var(--t1);">The Research Objective</h2>
-          <p class="mb-4" style="font-size:14px;color:var(--t2);line-height:1.75;">After a hurricane, city planners, public health officials, and emergency responders need to assess physical disorder across large geographic areas. That assessment today is done manually — slow, expensive, and inconsistent.</p>
-          <p style="font-size:14px;color:var(--t3);line-height:1.75;">This research trains computer vision models to detect disorder indicators in street-level imagery, creating a scalable alternative to field surveys that can support data-driven recovery decisions.</p>
-        </section>
-
-        <!-- Technical Implementation -->
-        <section>
-          <h2 class="font-bold text-[18px] mb-5" style="font-family:'Manrope',sans-serif;color:var(--t1);">Technical Implementation</h2>
-          <div class="space-y-3">
-            <div class="impl-card">
-              <div class="impl-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
-              <div>
-                <div class="font-semibold text-[14px] mb-1" style="color:var(--t1);">Data Pipeline</div>
-                <p style="font-size:13px;color:var(--t3);line-height:1.7;">Collected, cleaned, and structured street-level imagery. Designed annotation schema and labeling guidelines ensuring consistency across 5,200+ bounding box labels. Conducted iterative quality review to minimize labeling noise.</p>
-              </div>
-            </div>
-            <div class="impl-card">
-              <div class="impl-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-              </div>
-              <div>
-                <div class="font-semibold text-[14px] mb-1" style="color:var(--t1);">Model Training</div>
-                <p style="font-size:13px;color:var(--t3);line-height:1.7;">Fine-tuned YOLO11 on NVIDIA A100 GPU infrastructure. Built reproducible training pipelines covering preprocessing, augmentation, multi-run experiments, and metric-based evaluation. Tracked experiments with WandB.</p>
-              </div>
-            </div>
-            <div class="impl-card">
-              <div class="impl-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div>
-                <div class="font-semibold text-[14px] mb-1" style="color:var(--t1);">Interdisciplinary Collaboration</div>
-                <p style="font-size:13px;color:var(--t3);line-height:1.7;">Worked across teams in computer science, urban planning, and public health. Cross-domain collaboration shaped which disorder categories mattered most and aligned model outputs to real recovery use cases.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Key Outcomes -->
-        <section>
-          <h2 class="font-bold text-[18px] mb-5" style="font-family:'Manrope',sans-serif;color:var(--t1);">Key Outcomes</h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div class="outcome-card">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" flex-shrink-0 style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:13px;color:var(--t3);line-height:1.7;">Achieved 80% mAP on NVIDIA A100, establishing a reproducible baseline for iterative improvement.</p>
-            </div>
-            <div class="outcome-card">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:13px;color:var(--t3);line-height:1.7;">Labeled ~3,000 images with 5,200+ annotations across 8 disorder categories with consistent quality.</p>
-            </div>
-            <div class="outcome-card">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:13px;color:var(--t3);line-height:1.7;">Built end-to-end training pipeline from raw data through evaluation, reproducible for future iterations.</p>
-            </div>
-            <div class="outcome-card">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" style="flex-shrink:0;margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:13px;color:var(--t3);line-height:1.7;">Contributed ML expertise to interdisciplinary team spanning CS, urban planning, and public health.</p>
-            </div>
-          </div>
-        </section>
-
-      </article>
-    </div>
-
-    <!-- Prev/Next navigation -->
-    <div class="flex justify-between items-center pt-8" style="border-top:1px solid var(--bd);">
-      <a href="experience-crux-detail.html" class="inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
-         style="color:var(--t3);"
-         onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='var(--t3)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        Crux AI Internship
-      </a>
-      <a href="index.html" class="inline-flex items-center gap-2 text-[13px] font-medium transition-colors"
-         style="color:var(--t3);"
-         onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='var(--t3)'">
-        Back to Home
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-
+  <div class="nums rise">
+    <div class="num"><b>3,142</b><span>images labelled</span></div>
+    <div class="num"><b>5,200+</b><span>bounding-box annotations</span></div>
+    <div class="num"><b>8</b><span>disorder categories</span></div>
+    <div class="num"><b>80%</b><span>mAP@0.5</span></div>
   </div>
+
+  <!-- ═══ Objective ═══ -->
+  <div class="rule rise"><h2 class="head">Why it mattered</h2></div>
+
+  <div class="rise">
+    <p>
+      City planners, public health officials and emergency responders all need the same thing after
+      a storm: an honest picture of physical disorder across a very large area, quickly. Today that
+      assessment is a field survey — people, clipboards, weeks.
+    </p>
+    <p>
+      The research question was whether computer vision could stand in for that survey well enough to
+      support real recovery decisions. Not to replace the surveyors, but to give them a first pass over
+      a whole city in an afternoon.
+    </p>
+  </div>
+
+  <div class="aside rise">
+    The interesting constraint wasn't accuracy. It was <b>agreement</b> — a model is only useful here if
+    urban planners and public health researchers accept what it calls "disorder." That definition had to
+    be negotiated before a single box was drawn.
+  </div>
+
+  <!-- ═══ How ═══ -->
+  <div class="rule rise"><h2 class="head">How it was built</h2></div>
+
+  <div class="grid2">
+    <div class="card rise">
+      <h3 class="sub">1 · The data pipeline</h3>
+      <p style="font-size:14.5px;">
+        Collected, cleaned and structured street-level imagery. Designed the annotation schema and the
+        labelling guidelines that kept 5,200+ boxes consistent, then ran iterative quality review to
+        squeeze out labelling noise.
+      </p>
+    </div>
+    <div class="card alt rise">
+      <h3 class="sub">2 · Model training</h3>
+      <p style="font-size:14.5px;">
+        Fine-tuned YOLO11 on NVIDIA A100 GPUs. Built reproducible training pipelines covering
+        preprocessing, augmentation, multi-run experiments and metric-based evaluation, tracked in WandB.
+      </p>
+    </div>
+    <div class="card rise">
+      <h3 class="sub">3 · Working across departments</h3>
+      <p style="font-size:14.5px;">
+        Worked with computer science, urban planning and public health. That collaboration decided which
+        disorder categories actually mattered and kept the model's outputs pointed at real recovery use cases.
+      </p>
+    </div>
+    <div class="card alt rise">
+      <h3 class="sub">4 · Evaluation</h3>
+      <p style="font-size:14.5px;">
+        Held-out evaluation per category rather than one headline number — a model that finds litter well
+        and abandoned buildings badly is a very different tool than the average suggests.
+      </p>
+    </div>
+  </div>
+
+  <div class="code rise">
+    <div class="fname">train_config.yaml</div>
+<pre><span class="k">model</span>: <span class="v">yolo11n.pt</span>
+<span class="k">epochs</span>: <span class="n">100</span>
+<span class="k">imgsz</span>: <span class="n">640</span>
+<span class="k">batch</span>: <span class="n">16</span>
+<span class="k">device</span>: <span class="v">0 (A100)</span>
+<span class="k">optimizer</span>: <span class="v">SGD</span>
+<span class="c">metrics:</span>
+  <span class="k">map50</span>: <span class="n">0.800</span>
+  <span class="k">precision</span>: <span class="n">0.485</span></pre>
+  </div>
+
+  <!-- ═══ Outcomes ═══ -->
+  <div class="rule rise"><h2 class="head">What came out of it</h2></div>
+
+  <ul class="checks rise">
+    <li>Reached <em>80% mAP</em> on A100 training runs, establishing a reproducible baseline the lab can iterate against.</li>
+    <li>Labelled ~3,000 images with 5,200+ annotations across 8 disorder categories at consistent quality.</li>
+    <li>Built the end-to-end training pipeline — raw data through evaluation — so future runs are repeatable rather than bespoke.</li>
+    <li>Contributed the ML side of an interdisciplinary team spanning CS, urban planning and public health.</li>
+  </ul>
+
+  <div class="rise">
+    <h3 class="sub">Tools</h3>
+    <div class="chips" data-chips="YOLO11,PyTorch,NVIDIA A100,OpenCV,WandB,Python"></div>
+  </div>
+
+  <div class="aside rise">
+    The hard part was never the mAP. It was making a bounding box mean something to somebody who
+    doesn't think in bounding boxes.
+  </div>
+
+  <!-- ═══ Pager ═══ -->
+  <div class="pager">
+    <a class="hbtn" href="experience-crux-detail.html">← Crux AI internship</a>
+    <a class="hbtn" href="index.html">back to the desk →</a>
+  </div>
+
 </main>
 
-<!-- Footer -->
-<footer style="background:#030305;border-top:1px solid rgba(255,255,255,0.04);">
-  <div class="content flex flex-col sm:flex-row items-center justify-between gap-4 py-8">
-    <div class="flex items-center gap-3">
-      <span class="font-bold text-[15px] gtext" style="font-family:'Manrope',sans-serif;">JD.</span>
-      <span style="font-size:13px;color:var(--t4);">© <span id="year"></span> Jun Du. Built for the digital laboratory.</span>
-    </div>
-    <div class="flex items-center gap-6">
-      <a href="https://github.com/Carkappa" target="_blank" rel="noopener noreferrer" class="text-[13px] transition-colors" style="color:var(--t4);" onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t4)'">GitHub</a>
-      <a href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener noreferrer" class="text-[13px] transition-colors" style="color:var(--t4);" onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t4)'">LinkedIn</a>
-    </div>
-  </div>
+<footer class="foot">
+  <span>© <span id="year"></span> Jun Du</span>
+  <a href="mailto:justindujun@gmail.com">justindujun@gmail.com</a>
+  <a href="https://github.com/Carkappa" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-const bar = document.getElementById('scroll-bar');
-window.addEventListener('scroll', () => {
-  const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-  bar.style.width = (p * 100) + '%';
-}, { passive: true });
-document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
-window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40), { passive: true });
-</script>
+<script src="paper.js"></script>
 </body>
 </html>

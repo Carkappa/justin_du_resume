@@ -2,268 +2,488 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Resume | Justin Du</title>
-<meta name="description" content="Curriculum Vitae of Justin Du (Jun Du), CS student at Texas A&M specializing in ML and Computer Vision."/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resume — Jun "Justin" Du</title>
+<meta name="description" content="The resume of Jun (Justin) Du — CS at Texas A&M. Filter it by any technology to see exactly where it shows up."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="paper.css"/>
 <style>
-  :root {
-    --bg: #050508; --bg-s: #0b0b12; --bg-c: #0f0f18;
-    --accent: #6366f1; --accent-v: #8b5cf6;
-    --t1: #f1f5f9; --t2: #94a3b8; --t3: #475569; --t4: #2d3748;
-    --bd: rgba(255,255,255,0.06); --bd-md: rgba(255,255,255,0.1);
+  /* ── Filter rail ── */
+  #filters{
+    position:sticky; top:62px; z-index:35; margin:0 0 30px;
+    background:rgba(242,236,224,.9); backdrop-filter:blur(10px);
+    border-top:2px dashed var(--paper-3); border-bottom:2px dashed var(--paper-3);
+    padding:12px 0;
   }
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t1); -webkit-font-smoothing: antialiased; overflow-x: hidden; margin: 0; }
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 2px; }
-  #scroll-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg,#6366f1,#8b5cf6,#3b82f6); z-index: 9999; transition: width 0.08s linear; }
-  #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; transition: background 0.3s, border-color 0.3s; border-bottom: 1px solid transparent; }
-  #nav.scrolled { background: rgba(5,5,8,0.88); backdrop-filter: blur(20px); border-color: var(--bd); }
-  .nav-link { position: relative; font-size: 13.5px; font-weight: 500; color: var(--t3); transition: color 0.2s; padding-bottom: 2px; }
-  .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: linear-gradient(90deg,#6366f1,#8b5cf6); transition: width 0.25s; }
-  .nav-link:hover, .nav-link.active { color: var(--t1); }
-  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-  .gtext { background: linear-gradient(135deg,#6366f1,#8b5cf6,#3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .content { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-  .card { background: var(--bg-c); border: 1px solid var(--bd); border-radius: 14px; transition: border-color 0.25s; }
-  .card:hover { border-color: rgba(99,102,241,0.25); }
-  .slabel { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono',monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6366f1; }
-  .slabel::before { content: ''; display: block; width: 16px; height: 1px; background: #6366f1; }
-  .tag { display: inline-flex; padding: 3px 9px; border-radius: 5px; font-family: 'JetBrains Mono',monospace; font-size: 10.5px; font-weight: 500; background: rgba(99,102,241,0.09); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.18); }
-  .bullet { display: flex; gap: 12px; font-size: 13.5px; line-height: 1.75; color: var(--t3); }
-  .bullet::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: #6366f1; flex-shrink: 0; margin-top: 8px; }
+  #pills{display:flex; gap:9px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px;}
+  #pills::-webkit-scrollbar{display:none;}
+  .pill{
+    font-family:var(--note); font-weight:700; font-size:13.5px; white-space:nowrap;
+    color:var(--ink-2); background:none; cursor:pointer; padding:7px 15px; line-height:1;
+    border:2px solid var(--ink-4); border-radius:var(--wobble); transition:all .18s;
+  }
+  .pill:hover{color:var(--ink); border-color:var(--red);}
+  .pill.on{color:var(--paper); background:var(--ink); border-color:var(--ink);}
+  .pill i{font-style:normal; opacity:.6; font-size:11.5px; margin-left:4px;}
+  #fstatus{font-family:var(--note); font-size:13.5px; color:var(--ink-3); padding-top:9px; display:none;}
+  #fstatus b{color:var(--red);}
+  #fclear{background:none; border:0; font-family:var(--note); font-size:12.5px; color:var(--ink-3); text-decoration:underline; cursor:pointer;}
+
+  /* ── Entries ── */
+  .entry{position:relative; scroll-margin-top:130px;}
+  .entry.hide{display:none;}
+  .ehead{
+    display:flex; width:100%; text-align:left; align-items:flex-start; justify-content:space-between;
+    gap:16px; background:none; border:0; padding:0; color:inherit; font:inherit;
+  }
+  .js .ehead{cursor:pointer;}
+  .ebody{overflow:hidden;}
+  .js .ebody{max-height:0; opacity:0; margin-top:0; transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s, margin-top .3s;}
+  .js .entry.open .ebody{max-height:1800px; opacity:1; margin-top:18px;}
+  .chev{flex-shrink:0; transition:transform .3s; stroke:var(--ink-3); fill:none; stroke-width:2.4;}
+  .entry.open .chev{transform:rotate(180deg);}
+  .etitle{font-family:var(--note); font-weight:700; font-size:19px; line-height:1.2; margin:0 0 4px; color:var(--ink);}
+  .eorg{font-family:var(--note); font-size:15px; color:var(--blue); margin:0;}
+  .eorg small{color:var(--ink-3);}
+  .edate{font-family:var(--note); font-size:13.5px; color:var(--ink-3); white-space:nowrap; padding-top:3px;}
+  .badge{
+    display:inline-block; font-family:var(--note); font-weight:700; font-size:11px;
+    color:var(--green); border:2px solid var(--green); border-radius:var(--wobble-2);
+    padding:2px 9px; margin-left:8px; vertical-align:middle;
+  }
+
+  /* clickable tech chip */
+  .tchip{
+    position:relative; font-family:var(--note); font-weight:700; font-size:13px;
+    color:var(--ink-2); padding:6px 13px; line-height:1; white-space:nowrap;
+    cursor:pointer; isolation:isolate; transition:color .18s, transform .18s;
+  }
+  .tchip svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible; z-index:-1;}
+  .tchip svg path{fill:none; stroke:var(--ink-4); stroke-width:1.5; transition:stroke .18s, fill .18s;}
+  .tchip:hover{color:var(--ink); transform:translateY(-1px);}
+  .tchip:hover svg path{stroke:var(--red);}
+  .tchip.on{color:var(--paper);}
+  .tchip.on svg path{fill:var(--ink); stroke:var(--ink);}
+
+  .skillgroup{margin-bottom:26px;}
+  .skillgroup h4{font-family:var(--note); font-size:13px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--red); margin:0 0 10px;}
+
+  #pdf object{width:100%; height:74vh; min-height:520px; display:block; background:var(--paper-2); border:2px solid var(--ink); border-radius:var(--wobble);}
+
+  @media print{
+    #filters,#pdf,.actions{display:none !important;}
+    .js .ebody{max-height:none !important; opacity:1 !important; margin-top:12px !important;}
+    .entry.hide{display:block !important;}
+    .chev{display:none;}
+  }
 </style>
 </head>
 <body>
 
-<div id="scroll-bar"></div>
+<div id="rail"></div>
+<div id="vignette"></div>
+<div id="grain"></div>
 
-<!-- Nav -->
-<nav id="nav">
-  <div class="content flex items-center justify-between py-4">
-    <a href="index.html" class="font-bold text-[18px] tracking-tight" style="font-family:'Manrope',sans-serif;">
-      <span class="gtext">JD</span><span style="color:rgba(99,102,241,0.4)">.</span>
-    </a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="index.html"              class="nav-link">Home</a>
-      <a href="resume.html"             class="nav-link active">Resume</a>
-      <a href="experience-hrc-detail.html"  class="nav-link">Research</a>
-      <a href="experience-crux-detail.html" class="nav-link">Internship</a>
-    </div>
-    <a href="MY%20RESUME%20%284%29.pdf" download
-       class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-[13px] font-semibold transition-all"
-       style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download PDF
-    </a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="boil" x="-25%" y="-25%" width="150%" height="150%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="2" result="n">
+      <animate attributeName="seed" values="2;9;16" dur="0.36s" calcMode="discrete" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs></svg>
+
+<header id="topbar">
+  <a href="index.html" class="mark">JD<span>.</span></a>
+  <nav>
+    <a class="tlink" href="index.html">The desk</a>
+    <a class="tlink" href="experience-hrc-detail.html">Hurricane research</a>
+    <a class="tlink" href="experience-crux-detail.html">Crux AI</a>
+    <a class="tlink on" href="resume.html">Resume</a>
+  </nav>
+  <a class="hbtn filled" href="JunDu_s_Resume.pdf" download>Resume PDF</a>
+</header>
+
+<main class="sheet">
+
+  <div class="kicker rise">Curriculum vitae</div>
+  <h1 class="title rise">Jun “Justin” Du</h1>
+  <p class="lede rise" style="margin-bottom:18px;">
+    Computer Science at Texas A&amp;M. I build the layer where models, data and hardware have to meet
+    production — <em>and every chip on this page is a filter</em>, so you can see exactly where any
+    technology shows up in my work.
+  </p>
+
+  <div class="meta rise">
+    <span>✉ <a class="morelink" href="mailto:justindujun@gmail.com">justindujun@gmail.com</a></span>
+    <span>☎ (346) 978-6515</span>
+    <span>⌨ <a class="morelink" href="https://github.com/Carkappa" target="_blank" rel="noopener">github.com/Carkappa</a></span>
+    <span>in <a class="morelink" href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener">LinkedIn</a></span>
   </div>
-</nav>
 
-<!-- Main -->
-<main class="pt-28 pb-24">
-  <div class="content">
+  <div class="actions rise" style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:38px;">
+    <a class="hbtn filled" href="#pdf">Read the PDF inline</a>
+    <button class="hbtn" type="button" onclick="window.print()">Print this page</button>
+    <button class="hbtn" type="button" id="expandAll"><span id="expandLbl">Expand all</span></button>
+  </div>
 
-    <!-- Page title -->
-    <div class="mb-16">
-      <div class="slabel mb-4">Curriculum Vitae</div>
-      <h1 class="font-bold leading-tight mb-3" style="font-family:'Manrope',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);color:var(--t1);">
-        Justin Du
-      </h1>
-      <p style="font-size:15px;color:var(--t2);max-width:520px;line-height:1.7;">
-        Exploring the intersection of Machine Learning, Computer Vision,<br/>and scalable full-stack software architecture.
-      </p>
+  <div class="grid3 rise" style="margin-bottom:34px;">
+    <div class="card stat-box"><b>7k+</b><span>images annotated · Crux AI</span></div>
+    <div class="card alt stat-box"><b>~95%</b><span>detection accuracy</span></div>
+    <div class="card stat-box"><b>3×</b><span>test throughput · 50 → 150 / shift</span></div>
+    <div class="card alt stat-box"><b>10k+</b><span>App Store downloads</span></div>
+  </div>
+
+  <!-- ═══ Filters ═══ -->
+  <div id="filters">
+    <div id="pills">
+      <button class="pill on" data-domain="all">Everything <i></i></button>
+      <button class="pill" data-domain="ml">Machine learning <i></i></button>
+      <button class="pill" data-domain="cv">Computer vision <i></i></button>
+      <button class="pill" data-domain="data">Data engineering <i></i></button>
+      <button class="pill" data-domain="fullstack">Full-stack <i></i></button>
+      <button class="pill" data-domain="cloud">Cloud &amp; infra <i></i></button>
+      <button class="pill" data-domain="mobile">Mobile <i></i></button>
+      <button class="pill" data-domain="hardware">Hardware <i></i></button>
     </div>
+    <div id="fstatus">showing <b id="fname"></b> — <span id="fcount"></span> <button id="fclear">clear</button></div>
+  </div>
 
-    <!-- PDF download card -->
-    <div class="card p-7 flex flex-col sm:flex-row items-center justify-between gap-5 mb-14">
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-             style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.22);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-          </svg>
-        </div>
+  <!-- ═══ Experience ═══ -->
+  <div class="rule"><h2 class="head">Experience</h2></div>
+
+  <div id="exp">
+
+    <article class="entry card" data-domains="cloud" data-tech="platform-engineering infrastructure developer-tooling devops">
+      <button class="ehead" aria-expanded="false">
         <div>
-          <div class="font-semibold text-[15px]" style="color:var(--t1);">MY RESUME (4).pdf</div>
-          <div style="font-size:12.5px;color:var(--t3);">Justin Du (Jun Du) · Computer Science · Texas A&amp;M</div>
+          <p class="etitle">Platform Engineer Co-op <span class="badge">INCOMING</span></p>
+          <p class="eorg">Raytheon Technologies <small>· Richardson, TX</small></p>
+          <p class="edate" style="padding-top:6px;">Fall 2026</p>
         </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="ebody">
+        <ul class="checks">
+          <li>Selected for a platform engineering co-op supporting internal developer platforms and infrastructure tooling for defense systems software teams.</li>
+          <li>Focused on the layer engineers build <em>on</em> rather than the product itself — build and deployment tooling, environment reliability, and the paved paths that let mission software teams ship.</li>
+          <li>Top Secret clearance in process.</li>
+        </ul>
+        <div class="chips" data-tchips="Platform Engineering|platform-engineering,Infrastructure|infrastructure,Developer Tooling|developer-tooling,DevOps|devops"></div>
       </div>
-      <div class="flex gap-3">
-        <a href="MY%20RESUME%20%284%29.pdf" download
-           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[13px] font-semibold transition-all"
-           style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;"
-           onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download
-        </a>
-        <a href="MY%20RESUME%20%284%29.pdf" target="_blank" rel="noopener noreferrer"
-           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[13px] font-semibold transition-all"
-           style="border:1px solid var(--bd-md);color:var(--t2);"
-           onmouseover="this.style.borderColor='rgba(99,102,241,0.4)';this.style.color='var(--t1)'"
-           onmouseout="this.style.borderColor='var(--bd-md)';this.style.color='var(--t2)'">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          Preview
-        </a>
+    </article>
+
+    <article class="entry card alt" data-domains="data fullstack hardware cloud" data-tech="nextjs react typescript tailwind recharts prisma mariadb sql etl pcb">
+      <button class="ehead" aria-expanded="false">
+        <div>
+          <p class="etitle">Data Engineer Intern</p>
+          <p class="eorg">AST SpaceMobile <small>· Miami, FL</small></p>
+          <p class="edate" style="padding-top:6px;">May 2026 – August 2026</p>
+        </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="ebody">
+        <p style="font-size:15px;">Satellite batteries produce test data faster than anyone can read it. I built the system that made it legible — then went one layer down and rebuilt the fixture generating it.</p>
+        <ul class="checks">
+          <li>Built an internal battery test-data dashboard (Next.js 16, React 19, TypeScript, Tailwind 4) with interactive Recharts visualizations and an Excel-ingestion view linking satellite-module assembly records to battery packs, enabling real-time monitoring and failure analysis.</li>
+          <li>Engineered server-rendered ETL pipelines with Prisma 7 over a remote MariaDB, writing optimized SQL aggregate queries — subquery-based filtering, request-level caching — to power browsable inventory tables and cell/pack lifecycle views.</li>
+          <li>Developed a network-resilience layer (per-attempt timeouts, transient-error retries, compression, automatic VPN-to-RDS failover) that <em>eliminated intermittent query hangs and connection resets</em> over an unstable database path.</li>
+          <li>Designed and built a custom relay PCB for the battery Functional Test station, enabling 4 distinct test procedures on a single fixture and tripling technician throughput from 50 to 150 batteries per 8-hour shift.</li>
+        </ul>
+        <div class="chips" data-tchips="Next.js 16|nextjs,React 19|react,TypeScript|typescript,Tailwind 4|tailwind,Recharts|recharts,Prisma 7|prisma,MariaDB|mariadb,SQL|sql,ETL|etl,PCB Design|pcb"></div>
       </div>
-    </div>
+    </article>
 
-    <!-- Education -->
-    <section class="mb-12">
-      <div class="slabel mb-6">Education</div>
-      <div class="card p-7">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
-          <div>
-            <h3 class="font-bold text-[17px]" style="font-family:'Manrope',sans-serif;color:var(--t1);">Texas A&amp;M University</h3>
-            <p style="font-size:13.5px;color:var(--t2);margin-top:2px;">B.S. in Computer Science · College Station, TX</p>
-          </div>
-          <span class="flex-shrink-0 px-3 py-1 rounded-full text-[11px]"
-                style="background:rgba(99,102,241,0.08);color:#a5b4fc;border:1px solid rgba(99,102,241,0.18);font-family:'JetBrains Mono',monospace;white-space:nowrap;">
-            Expected May 2027
-          </span>
+    <article class="entry card" data-domains="cloud" data-tech="autonomy uav systems-engineering python">
+      <button class="ehead" aria-expanded="false">
+        <div>
+          <p class="etitle">Autonomous Software Engineer <span class="badge">CURRENT</span></p>
+          <p class="eorg">Texas A&amp;M Vertical Flight Design <small>· College Station, TX</small></p>
+          <p class="edate" style="padding-top:6px;">March 2026 – present</p>
         </div>
-        <p style="font-size:13px;color:var(--t3);">GPA: 3.370 · Texas Leadership Scholar · Houston Livestock &amp; Rodeo Scholarship · Regent Scholar</p>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="ebody">
+        <ul class="checks">
+          <li>Develop autonomy software for the team's uncrewed vertical-flight aircraft competing in the 2026 Student Unmanned Aerial Systems (SUAS) competition.</li>
+          <li>Authored the competition requirements document derived from the SUAS Team Handbook, turning a rulebook into testable constraints the whole team designs against.</li>
+          <li>Delivered a tiltrotor configuration trade study to inform vehicle design decisions.</li>
+        </ul>
+        <div class="chips" data-tchips="Autonomy|autonomy,UAV / SUAS|uav,Systems Engineering|systems-engineering,Python|python"></div>
       </div>
-    </section>
+    </article>
 
-    <!-- Professional Experience -->
-    <section class="mb-12">
-      <div class="slabel mb-6">Professional Experience</div>
-      <div class="space-y-5">
-
-        <!-- HRC -->
-        <div class="card p-7">
-          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-            <div>
-              <h3 class="font-bold text-[17px]" style="font-family:'Manrope',sans-serif;color:var(--t1);">Undergraduate Research Assistant</h3>
-              <p style="font-size:13px;color:#6366f1;font-weight:500;margin-top:3px;">Texas A&amp;M Hazard Reduction &amp; Recovery Center</p>
-            </div>
-            <span class="flex-shrink-0 px-3 py-1 rounded-full text-[11px]"
-                  style="background:rgba(255,255,255,0.04);border:1px solid var(--bd);color:var(--t3);font-family:'JetBrains Mono',monospace;white-space:nowrap;">
-              Aug 2025 – Dec 2025
-            </span>
-          </div>
-          <div class="space-y-2 mb-5">
-            <div class="bullet">Developed computer vision models to detect physical disorder indicators in post-hurricane street-level imagery.</div>
-            <div class="bullet">Trained YOLO11 on nearly 3,000 images with 5,000+ annotations, achieving 80% mAP on NVIDIA A100.</div>
-            <div class="bullet">Built an end-to-end ML pipeline from labeling and annotation to model training and evaluation.</div>
-            <div class="bullet">Collaborated with teams across computer science, urban planning, and public health departments.</div>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag">YOLO11</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">NVIDIA A100</span>
-            <span class="tag">OpenCV</span>
-          </div>
+    <article class="entry card alt" data-domains="ml cv" data-tech="pytorch yolov11 python opencv nvidia-a100 computer-vision">
+      <button class="ehead" aria-expanded="false">
+        <div>
+          <p class="etitle">Undergraduate Research Assistant — Computer Vision</p>
+          <p class="eorg">Texas A&amp;M Hazard Reduction &amp; Recovery Center <small>· College Station, TX</small></p>
+          <p class="edate" style="padding-top:6px;">August 2025 – December 2025</p>
         </div>
-
-        <!-- Crux AI -->
-        <div class="card p-7">
-          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-            <div>
-              <h3 class="font-bold text-[17px]" style="font-family:'Manrope',sans-serif;color:var(--t1);">Machine Learning &amp; AI Intern</h3>
-              <p style="font-size:13px;color:#6366f1;font-weight:500;margin-top:3px;">Crux AI</p>
-            </div>
-            <span class="flex-shrink-0 px-3 py-1 rounded-full text-[11px]"
-                  style="background:rgba(255,255,255,0.04);border:1px solid var(--bd);color:var(--t3);font-family:'JetBrains Mono',monospace;white-space:nowrap;">
-              May 2025 – Aug 2025
-            </span>
-          </div>
-          <div class="space-y-2 mb-5">
-            <div class="bullet">Built an end-to-end vision pipeline using YOLOv11 hold detection and YOLOv11n-pose to analyze climbing movement.</div>
-            <div class="bullet">Curated and labeled training data in Roboflow; fine-tuned models to ~99% detection accuracy.</div>
-            <div class="bullet">Automated video analysis into structured performance metrics: hold sequence, movement distance, joint-angle trajectories.</div>
-            <div class="bullet">Built reporting scripts for Excel-based athlete reports and LLM-assisted movement analysis.</div>
-            <div class="bullet">Packaged detections, pose traces, and narrative summaries into a repeatable post-session workflow.</div>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag">YOLOv11</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">Roboflow</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">LangChain</span>
-          </div>
-        </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="ebody">
+        <ul class="checks">
+          <li>Trained YOLOv11 object detection models (PyTorch) to identify physical disorder indicators — litter, graffiti, abandoned buildings — in post-hurricane street-level imagery, using 3,000+ images with 5,000+ annotations.</li>
+          <li>Built the end-to-end ML pipeline from data labeling and annotation through model training on NVIDIA A100 GPUs.</li>
+          <li>Collaborated with urban planning and public health researchers to translate outputs into disaster recovery insights.</li>
+        </ul>
+        <div class="chips" data-tchips="PyTorch|pytorch,YOLOv11|yolov11,Python|python,OpenCV|opencv,NVIDIA A100|nvidia-a100"></div>
+        <p style="margin-top:14px;"><a class="morelink" href="experience-hrc-detail.html">Read the long version →</a></p>
       </div>
-    </section>
+    </article>
 
-    <!-- Featured Projects -->
-    <section class="mb-12">
-      <div class="slabel mb-6">Featured Projects</div>
-      <div class="grid sm:grid-cols-2 gap-4">
-
-        <div class="card p-6">
-          <h3 class="font-bold text-[16px] mb-2" style="font-family:'Manrope',sans-serif;color:var(--t1);">EcoTracker</h3>
-          <p style="font-size:13px;color:var(--t3);line-height:1.65;margin-bottom:14px;">Full-stack TypeScript/React app used by Texas A&amp;M professors as an instructional tool. 100+ active users per semester.</p>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Node.js</span>
-          </div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);">Sep 2025 – Dec 2025</div>
+    <article class="entry card" data-domains="ml cv cloud" data-tech="pytorch yolov11 python docker azure llm prompt-engineering mlops computer-vision">
+      <button class="ehead" aria-expanded="false">
+        <div>
+          <p class="etitle">Machine Learning &amp; AI Intern</p>
+          <p class="eorg">Crux AI <small>· College Station, TX</small></p>
+          <p class="edate" style="padding-top:6px;">May 2025 – August 2025</p>
         </div>
-
-        <div class="card p-6">
-          <h3 class="font-bold text-[16px] mb-2" style="font-family:'Manrope',sans-serif;color:var(--t1);">FRC Strategy App</h3>
-          <p style="font-size:13px;color:var(--t3);line-height:1.65;margin-bottom:14px;">Flutter app for FIRST Robotics teams with TheBlueAlliance API integration and real-time match schedules.</p>
-          <div class="flex flex-wrap gap-2 mb-3">
-            <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">TheBlueAlliance API</span>
-          </div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t4);">Aug 2024 – Jan 2025</div>
-        </div>
-
-        <div class="sm:col-span-2 card p-6" style="background:linear-gradient(135deg,#0d0d1c,#111128);">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h3 class="font-bold text-[16px] mb-1" style="font-family:'Manrope',sans-serif;color:var(--t1);">Maroon Ride</h3>
-              <p style="font-size:13px;color:var(--t3);line-height:1.65;max-width:500px;margin-bottom:12px;">React Native/TypeScript contributions to Reveille Rides — ETA and route-planning optimizations for an app with 10,000+ Apple App Store downloads.</p>
-              <div class="flex flex-wrap gap-2">
-                <span class="tag">React Native</span><span class="tag">TypeScript</span>
-              </div>
-            </div>
-            <div class="flex-shrink-0 text-right">
-              <div class="font-bold text-[2rem]" style="font-family:'Manrope',sans-serif;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10k+</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t4);">App Store downloads</div>
-            </div>
-          </div>
-        </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="ebody">
+        <ul class="checks">
+          <li>Architected and deployed an end-to-end computer vision system (PyTorch, YOLOv11) combining object detection with pose estimation to reconstruct climbing movement from video into structured metrics.</li>
+          <li>Curated and annotated 7,000+ domain-specific images of climbing holds; trained and optimized custom detection models reaching ~95% accuracy under varied lighting and route conditions.</li>
+          <li>Deployed Dockerized inference services on Microsoft Azure Container Apps, applying MLOps practices to serve models efficiently at scale.</li>
+          <li>Integrated a generative-AI analysis layer, applying prompt engineering to generate strategy-level feedback on climbing efficiency, route optimization and technique.</li>
+        </ul>
+        <div class="chips" data-tchips="PyTorch|pytorch,YOLOv11|yolov11,Pose Estimation|computer-vision,Docker|docker,Azure Container Apps|azure,LLM Integration|llm,MLOps|mlops"></div>
+        <p style="margin-top:14px;"><a class="morelink" href="experience-crux-detail.html">Read the long version →</a></p>
       </div>
-    </section>
+    </article>
 
   </div>
+  <p id="expEmpty" style="display:none; font-family:var(--note); color:var(--ink-3);">Nothing in my experience matches that filter.</p>
+
+  <!-- ═══ Projects ═══ -->
+  <div class="rule"><h2 class="head">Projects</h2></div>
+
+  <div id="proj">
+    <article class="entry card" data-domains="mobile fullstack" data-tech="react-native typescript">
+      <h3 class="sub" style="font-size:19px;">Maroon Ride <span style="font-weight:400;color:var(--ink-3);font-size:14px;">· Jan – May 2024</span></h3>
+      <p style="font-size:15px;">Campus ride-sharing app with 10,000+ downloads on the Apple App Store. I implemented ETA logic and backend route-planning improvements for real-time ride coordination — the kind of work where being wrong by ninety seconds means someone misses class.</p>
+      <div class="chips" data-tchips="React Native|react-native,TypeScript|typescript"></div>
+    </article>
+
+    <article class="entry card alt" data-domains="fullstack" data-tech="react typescript nodejs">
+      <h3 class="sub" style="font-size:19px;">EcoTracker <span style="font-weight:400;color:var(--ink-3);font-size:14px;">· Sep – Dec 2025</span></h3>
+      <p style="font-size:15px;">Full-stack TypeScript/React app adopted by Texas A&amp;M professors as an instructional tool, serving 100+ active users per semester.</p>
+      <div class="chips" data-tchips="React|react,TypeScript|typescript,Node.js|nodejs"></div>
+    </article>
+
+    <article class="entry card" data-domains="mobile" data-tech="flutter dart">
+      <h3 class="sub" style="font-size:19px;">FRC Strategy App <span style="font-weight:400;color:var(--ink-3);font-size:14px;">· Aug 2024 – Jan 2025</span></h3>
+      <p style="font-size:15px;">Flutter app for FIRST Robotics teams with TheBlueAlliance API integration and real-time match schedules — scouting data where teams actually need it, on the field.</p>
+      <div class="chips" data-tchips="Flutter|flutter,Dart|dart"></div>
+    </article>
+  </div>
+  <p id="projEmpty" style="display:none; font-family:var(--note); color:var(--ink-3);">No projects match that filter.</p>
+
+  <!-- ═══ Education ═══ -->
+  <div class="rule"><h2 class="head">Education</h2></div>
+
+  <div class="card rise">
+    <h3 class="sub" style="font-size:19px;">Texas A&amp;M University</h3>
+    <p class="eorg" style="margin-bottom:16px;">B.S. Computer Science <small>· College Station, TX · expected May 2027</small></p>
+    <div class="nums">
+      <div class="num"><b>3.71</b><span>cumulative GPA</span></div>
+      <div class="num"><b>2027</b><span>expected graduation</span></div>
+    </div>
+    <div class="chips" data-chips="Texas Leadership Scholar,Regent Scholar,Houston Livestock Show &amp; Rodeo Scholarship"></div>
+    <p style="font-family:var(--note); font-size:14.5px; color:var(--ink-3); margin:18px 0 0;">
+      Aggie Coding Club · Data Science Club · Data Science Hackathon · English and Mandarin Chinese
+    </p>
+  </div>
+
+  <!-- ═══ Skills ═══ -->
+  <div class="rule"><h2 class="head">The toolbox</h2></div>
+  <p style="font-family:var(--note); color:var(--ink-3); margin:-8px 0 22px;">Click anything here to filter everything above it.</p>
+
+  <div class="grid2" id="skills">
+    <div class="skillgroup">
+      <h4>Languages</h4>
+      <div class="chips" data-tchips="Python|python,TypeScript|typescript,JavaScript|javascript,SQL|sql,Java|java,C#|csharp,C++|cpp,HTML/CSS|html-css"></div>
+    </div>
+    <div class="skillgroup">
+      <h4>AI / ML</h4>
+      <div class="chips" data-tchips="PyTorch|pytorch,Computer Vision|computer-vision,YOLOv11|yolov11,OpenCV|opencv,MLOps|mlops,LLM Integration|llm,Prompt Engineering|prompt-engineering"></div>
+    </div>
+    <div class="skillgroup">
+      <h4>Web &amp; frameworks</h4>
+      <div class="chips" data-tchips="React|react,Next.js|nextjs,Node.js|nodejs,React Native|react-native,Flutter|flutter,Prisma|prisma,Tailwind|tailwind"></div>
+    </div>
+    <div class="skillgroup">
+      <h4>Data &amp; cloud</h4>
+      <div class="chips" data-tchips="ETL / Pipelines|etl,MariaDB|mariadb,MySQL|mysql,AWS|aws,Azure|azure,GCP|gcp,Docker|docker,Kubernetes|kubernetes,CI/CD|cicd,Linux|linux"></div>
+    </div>
+    <div class="skillgroup">
+      <h4>Tools</h4>
+      <div class="chips" data-tchips="Git|git,Azure DevOps|azure-devops,Pandas|pandas,NumPy|numpy,Matplotlib|matplotlib,Recharts|recharts,Roboflow|roboflow"></div>
+    </div>
+    <div class="skillgroup">
+      <h4>Hardware</h4>
+      <div class="chips" data-tchips="PCB Design|pcb,UAV / SUAS|uav,Systems Engineering|systems-engineering"></div>
+    </div>
+  </div>
+
+  <!-- ═══ PDF ═══ -->
+  <div class="rule"><h2 class="head">The one-pager</h2></div>
+  <div id="pdf">
+    <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:16px;">
+      <p style="font-family:var(--note); color:var(--ink-3); margin:0;">Same content, one page, ATS-friendly.</p>
+      <div style="display:flex; gap:10px;">
+        <a class="hbtn filled" href="JunDu_s_Resume.pdf" download>Download</a>
+        <a class="hbtn" href="JunDu_s_Resume.pdf" target="_blank" rel="noopener">New tab</a>
+      </div>
+    </div>
+    <object data="JunDu_s_Resume.pdf#view=FitH" type="application/pdf">
+      <div style="padding:40px; text-align:center;">
+        <p>Your browser can't show PDFs inline.</p>
+        <a class="hbtn filled" href="JunDu_s_Resume.pdf" target="_blank" rel="noopener">Open the PDF</a>
+      </div>
+    </object>
+  </div>
+
 </main>
 
-<!-- Footer -->
-<footer style="background:#030305;border-top:1px solid rgba(255,255,255,0.04);">
-  <div class="content flex flex-col sm:flex-row items-center justify-between gap-4 py-8">
-    <div class="flex items-center gap-3">
-      <span class="font-bold text-[15px] gtext" style="font-family:'Manrope',sans-serif;">JD.</span>
-      <span style="font-size:13px;color:var(--t4);">© <span id="year"></span> Jun Du. Built for the digital laboratory.</span>
-    </div>
-    <div class="flex items-center gap-6">
-      <a href="https://github.com/Carkappa" target="_blank" rel="noopener noreferrer"
-         class="text-[13px] transition-colors" style="color:var(--t4);"
-         onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t4)'">GitHub</a>
-      <a href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener noreferrer"
-         class="text-[13px] transition-colors" style="color:var(--t4);"
-         onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--t4)'">LinkedIn</a>
-    </div>
-  </div>
+<footer class="foot">
+  <span>© <span id="year"></span> Jun Du</span>
+  <a href="mailto:justindujun@gmail.com">justindujun@gmail.com</a>
+  <a href="https://github.com/Carkappa" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
+<script src="paper.js"></script>
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
-const bar = document.getElementById('scroll-bar');
-window.addEventListener('scroll', () => {
-  const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-  bar.style.width = (p * 100) + '%';
-}, { passive: true });
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+document.body.classList.add('js');
+
+/* ── Clickable tech chips: "Label|slug,Label|slug" ── */
+document.querySelectorAll('.chips[data-tchips]').forEach(box=>{
+  box.innerHTML = box.dataset.tchips.split(',').map(pair=>{
+    const [label, slug] = pair.split('|');
+    const w = 6 + Math.random()*4;
+    return `<span class="tchip boil" data-tech="${slug.trim()}" role="button" tabindex="0">`
+         + `<svg viewBox="0 0 100 32" preserveAspectRatio="none"><path d="M3 ${w} C 24 2, 60 3, 97 5 C 98 13, 97 22, 96 28 C 64 31, 30 30, 4 28 C 2 21, 2 12, 3 ${w} Z"/></svg>`
+         + `${label.trim()}</span>`;
+  }).join('');
+});
+
+/* ── Expand / collapse ── */
+const entries = [...document.querySelectorAll('#exp .entry')];
+entries.forEach(e=>{
+  const head = e.querySelector('.ehead');
+  head.addEventListener('click', ()=>{
+    const open = e.classList.toggle('open');
+    head.setAttribute('aria-expanded', String(open));
+    syncLabel();
+  });
+});
+entries[0]?.classList.add('open');
+entries[0]?.querySelector('.ehead')?.setAttribute('aria-expanded','true');
+
+const expandLbl = document.getElementById('expandLbl');
+function syncLabel(){
+  const vis = entries.filter(e=>!e.classList.contains('hide'));
+  expandLbl.textContent = (vis.length && vis.every(e=>e.classList.contains('open'))) ? 'Collapse all' : 'Expand all';
+}
+document.getElementById('expandAll').addEventListener('click', ()=>{
+  const vis = entries.filter(e=>!e.classList.contains('hide'));
+  const open = !(vis.length && vis.every(e=>e.classList.contains('open')));
+  vis.forEach(e=>{
+    e.classList.toggle('open', open);
+    e.querySelector('.ehead')?.setAttribute('aria-expanded', String(open));
+  });
+  syncLabel();
+});
+syncLabel();
+
+/* ── Filtering ── */
+const cards  = [...document.querySelectorAll('#exp .entry, #proj .entry')];
+const pills  = [...document.querySelectorAll('.pill')];
+const fstat  = document.getElementById('fstatus');
+const fname  = document.getElementById('fname');
+const fcount = document.getElementById('fcount');
+let active = {type:'domain', value:'all'};
+
+function labelFor(tech){
+  const el = document.querySelector(`.tchip[data-tech="${tech}"]`);
+  return el ? el.textContent.trim() : tech;
+}
+function matches(card){
+  if(active.value === 'all') return true;
+  const set = (active.type === 'domain' ? card.dataset.domains : card.dataset.tech) || '';
+  return set.split(/\s+/).includes(active.value);
+}
+function apply(){
+  let e = 0, p = 0;
+  cards.forEach(c=>{
+    const ok = matches(c);
+    c.classList.toggle('hide', !ok);
+    if(ok){ c.closest('#exp') ? e++ : p++; }
+  });
+  document.getElementById('expEmpty').style.display  = e ? 'none' : 'block';
+  document.getElementById('projEmpty').style.display = p ? 'none' : 'block';
+
+  pills.forEach(x=>x.classList.toggle('on', active.type==='domain' && x.dataset.domain===active.value));
+  document.querySelectorAll('.tchip').forEach(t=>t.classList.toggle('on', active.type==='tech' && t.dataset.tech===active.value));
+
+  if(active.value === 'all'){ fstat.style.display = 'none'; }
+  else{
+    fstat.style.display = 'block';
+    fname.textContent = active.type==='tech' ? labelFor(active.value)
+      : (document.querySelector(`.pill[data-domain="${active.value}"]`)?.childNodes[0].textContent.trim() || active.value);
+    const n = e + p;
+    fcount.textContent = n + (n===1 ? ' match' : ' matches');
+    // open what survived, so the answer is visible not one click away
+    entries.forEach(x=>{
+      if(!x.classList.contains('hide')){
+        x.classList.add('open');
+        x.querySelector('.ehead')?.setAttribute('aria-expanded','true');
+      }
+    });
+  }
+  syncLabel();
+}
+function setFilter(type, value){
+  active = (active.type===type && active.value===value && value!=='all')
+    ? {type:'domain', value:'all'} : {type, value};
+  apply();
+}
+
+pills.forEach(p=>p.addEventListener('click', ()=>{
+  setFilter('domain', p.dataset.domain);
+  document.getElementById('exp').scrollIntoView({behavior:'smooth', block:'start'});
+}));
+document.addEventListener('click', ev=>{
+  const t = ev.target.closest('.tchip');
+  if(!t) return;
+  setFilter('tech', t.dataset.tech);
+  document.getElementById('exp').scrollIntoView({behavior:'smooth', block:'start'});
+});
+document.addEventListener('keydown', ev=>{
+  if(ev.key !== 'Enter' && ev.key !== ' ') return;
+  const t = ev.target.closest?.('.tchip');
+  if(!t) return;
+  ev.preventDefault();
+  setFilter('tech', t.dataset.tech);
+});
+document.getElementById('fclear').addEventListener('click', ()=>setFilter('domain','all'));
+
+/* pill counts */
+pills.forEach(p=>{
+  const d = p.dataset.domain, i = p.querySelector('i');
+  if(!i) return;
+  i.textContent = d==='all' ? cards.length
+    : cards.filter(c=>(c.dataset.domains||'').split(/\s+/).includes(d)).length;
+});
+
+/* deep link: resume.html#tech=pytorch */
+const m = location.hash.match(/^#tech=([\w-]+)$/);
+if(m) setFilter('tech', m[1]);
 </script>
 </body>
 </html>
