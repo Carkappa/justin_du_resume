@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="paper.css"/>
+<script>document.documentElement.classList.add('js');</script>
 <style>
   .hero{display:flex; flex-wrap:wrap; align-items:center; gap:34px; margin-bottom:14px;}
   .hero .art{width:150px; height:150px; flex-shrink:0; overflow:visible;}
@@ -24,6 +25,8 @@
   .flow .step span{font-family:var(--note); font-size:12.5px; color:var(--ink-3); line-height:1.5;}
   .flow .arr{display:flex; align-items:center; color:var(--red); font-size:22px; font-family:var(--hand);}
   @media (max-width:700px){ .flow .arr{transform:rotate(90deg); justify-content:center; width:100%;} }
+  /* the clips are portrait — cap the height so a pair doesn't run off the screen */
+  figure video.paper{max-height:62vh; width:auto; max-width:100%; margin:0 auto;}
 </style>
 </head>
 <body>
@@ -187,18 +190,33 @@
     <div class="chips" data-chips="PyTorch,Ultralytics YOLOv11,Pose Estimation,Roboflow,OpenCV,Docker,Azure Container Apps,LLM Integration,Python"></div>
   </div>
 
-  <!-- ═══ Assets ═══ -->
-  <div class="rule rise"><h2 class="head">Project assets</h2></div>
+  <!-- ═══ Watch it work ═══ -->
+  <div class="rule rise"><h2 class="head">Watch it work</h2></div>
+
+  <p class="rise" style="margin:-6px 0 22px;">
+    The same forty seconds, before and after the pipeline sees it. On the right, every red circle is a
+    detected hold, the blue skeleton is the pose model, and the panel top-left is movement telemetry
+    computed live — arm extension, balance, phase.
+  </p>
 
   <div class="grid2 rise">
-    <a class="asset" href="annotatedVideo.mp4" target="_blank" rel="noopener">
-      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
-      <span><b>Annotated video</b><span>Hold detection + pose overlay</span></span>
-    </a>
-    <a class="asset" href="originalVideo.mp4" target="_blank" rel="noopener">
-      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span>
-      <span><b>Original video</b><span>Raw climbing footage</span></span>
-    </a>
+    <figure>
+      <video class="paper" controls preload="metadata" playsinline muted>
+        <source src="originalVideo.mp4" type="video/mp4"/>
+        <a href="originalVideo.mp4">Download the raw footage</a>
+      </video>
+      <figcaption>Raw footage — what the camera saw.</figcaption>
+    </figure>
+    <figure>
+      <video class="paper" controls preload="metadata" playsinline muted>
+        <source src="annotatedVideo.mp4" type="video/mp4"/>
+        <a href="annotatedVideo.mp4">Download the annotated footage</a>
+      </video>
+      <figcaption>What the model saw — holds, pose, and live movement metrics.</figcaption>
+    </figure>
+  </div>
+
+  <div class="grid2 rise">
     <a class="asset" href="images/Frontpage.png" target="_blank" rel="noopener">
       <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
       <span><b>App frontpage</b><span>Interface screenshot</span></span>

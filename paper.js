@@ -4,6 +4,9 @@
    scroll-in reveals. Pages stay plain HTML; this does the rest.
    ══════════════════════════════════════════════════════════════ */
 (function(){
+  /* Claim JS before anything paints, so .rise can safely start hidden. */
+  document.documentElement.classList.add('js');
+
   const BOX = 'M4 7 C 20 3, 55 4, 96 6 C 97 16, 96 27, 95 34 C 66 37, 30 36, 5 34 C 3 25, 3 15, 4 7 Z';
 
   /* Every .hbtn gets its hand-drawn box without repeating it in markup. */
