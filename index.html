@@ -243,13 +243,6 @@
     40%{transform:translateX(-3px) rotate(-1.5deg);} 56%{transform:translateX(3px) rotate(1.5deg);}
     72%{transform:translateX(-2px);} 86%{transform:translateX(2px);}
   }
-  /* the beaker tips and pours */
-  .act-about{animation:pour .84s cubic-bezier(.35,1.2,.4,1); transform-origin:50% 88%;}
-  @keyframes pour{
-    0%{transform:rotate(0);} 34%{transform:rotate(-26deg);}
-    64%{transform:rotate(12deg);} 100%{transform:rotate(0);}
-  }
-
   /* ── Panel ── */
   #panelRoot{
     position:fixed; inset:0; z-index:60; display:none;
@@ -391,7 +384,7 @@
     .sheet{padding:96px 22px 110px;}
   }
   @media (min-width:640px) and (max-width:1100px), (min-width:640px) and (max-height:620px){
-    #scene{grid-template-columns:repeat(4,1fr);}
+    #scene{grid-template-columns:repeat(3,1fr);}
   }
   /* Small phones: the top bar has to fit two buttons and the mark. */
   @media (max-width:480px){
@@ -629,36 +622,6 @@
     <div class="chips" data-chips="React Native,TypeScript,React,Node.js,Flutter,Dart"></div>
   </article>
 
-  <article class="sheet" data-key="about">
-    <div class="kicker">The person</div>
-    <h2>Who's drawing this</h2>
-    <p class="where">B.S. Computer Science · Texas A&amp;M University</p>
-    <p class="when">Expected May 2027 · GPA 3.71</p>
-    <p class="lede">The pattern across everything above is the same: take something unstructured — hurricane imagery, climbing video, a firehose of battery test data — and turn it into something an engineer can act on. Sometimes that's a model. Sometimes it's a dashboard, an ETL pipeline, or <em>a circuit board</em>.</p>
-    <div class="aside">Right now: platform engineering co-op at Raytheon — and <b>looking for full-time roles</b> for after I graduate in May 2027. <a class="morelink" href="mailto:justindujun@gmail.com?subject=Full-time%20role">Say hi →</a></div>
-    <div class="nums">
-      <div class="num"><b>3.71</b><span>cumulative GPA</span></div>
-      <div class="num"><b>2027</b><span>expected graduation</span></div>
-      <div class="num"><b>3</b><span>scholarships</span></div>
-    </div>
-    <ul>
-      <li>Texas Leadership Scholar · Regent Scholar · Houston Livestock Show &amp; Rodeo Scholarship</li>
-      <li>Aggie Coding Club · Data Science Club · Data Science Hackathon</li>
-      <li>Speaks English and Mandarin Chinese</li>
-    </ul>
-    <h3 style="font-family:var(--hand);font-size:2rem;margin:36px 0 14px;">The toolbox</h3>
-    <p style="font-family:var(--note);font-size:14px;color:var(--ink-3);margin:0 0 8px;">Languages</p>
-    <div class="chips" data-chips="Python,TypeScript,JavaScript,SQL,Java,C#,C++,HTML/CSS"></div>
-    <p style="font-family:var(--note);font-size:14px;color:var(--ink-3);margin:20px 0 8px;">AI / ML</p>
-    <div class="chips" data-chips="PyTorch,Computer Vision,YOLOv11,OpenCV,MLOps,LLM Integration,Prompt Engineering"></div>
-    <p style="font-family:var(--note);font-size:14px;color:var(--ink-3);margin:20px 0 8px;">Web &amp; frameworks</p>
-    <div class="chips" data-chips="React,Next.js,Node.js,React Native,Flutter,Prisma,Tailwind"></div>
-    <p style="font-family:var(--note);font-size:14px;color:var(--ink-3);margin:20px 0 8px;">Data &amp; cloud</p>
-    <div class="chips" data-chips="ETL / Pipelines,MariaDB,MySQL,AWS,Azure,GCP,Docker,Kubernetes,CI/CD,Linux"></div>
-    <p style="font-family:var(--note);font-size:14px;color:var(--ink-3);margin:20px 0 8px;">Tools</p>
-    <div class="chips" data-chips="Git,Azure DevOps,Pandas,NumPy,Matplotlib,Recharts,Roboflow"></div>
-  </article>
-
 </div>
 
 <script>
@@ -706,14 +669,7 @@ const ART = {
             <path d="M42 18 L58 18"/>
             <path class="hot" d="M50 34 C 58 34, 63 40, 63 47 C 63 57, 50 72, 50 72 C 50 72, 37 57, 37 47 C 37 40, 42 34, 50 34 Z"/>
             <circle class="hot" cx="50" cy="47" r="5"/>
-            <path class="cool" d="M34 82 C 42 78, 58 78, 66 82" opacity=".6"/>`,
-  /* Beaker + notebook → about */
-  about:`<path d="M40 12 L40 40 L20 82 C 17 88, 21 94, 28 94 L72 94 C 79 94, 83 88, 80 82 L60 40 L60 12"/>
-         <path d="M34 12 L66 12"/>
-         <path class="cool" d="M27 70 C 40 64, 60 76, 74 70 L80 82 C 83 88, 79 94, 72 94 L28 94 C 21 94, 17 88, 20 82 Z" opacity=".55"/>
-         <circle class="warm" cx="44" cy="78" r="3"/>
-         <circle class="warm" cx="58" cy="84" r="2.4"/>
-         <path class="hot" d="M74 20 L88 20 M81 13 L81 27"/>`
+            <path class="cool" d="M34 82 C 42 78, 58 78, 66 82" opacity=".6"/>`
 };
 
 /* x / y place each doodle's centre, as a % of the scene; z is real depth. */
@@ -723,8 +679,7 @@ const DOODLES = [
   {key:'vfd',      label:'Vertical Flight',    sub:'autonomy · SUAS 2026',  x:92, y:66, z:-130, w:150, three:true},
   {key:'hrc',      label:'Hurricane research', sub:'computer vision',       x:11, y:72, z:-50,  w:150},
   {key:'crux',     label:'Crux AI',            sub:'climbing, seen by a model', x:31, y:89, z:-80, w:140},
-  {key:'projects', label:'Side projects',      sub:'10k+ downloads',        x:69, y:89, z:-20,  w:130},
-  {key:'about',    label:'About me',           sub:'the toolbox',           x:57, y:13, z:-150, w:120}
+  {key:'projects', label:'Side projects',      sub:'10k+ downloads',        x:69, y:89, z:-20,  w:130}
 ];
 const KEYS = DOODLES.map(d=>d.key);
 
@@ -953,8 +908,7 @@ const INK_BY_KEY = {
   vfd:      {r:0.14, g:0.12, b:0.16},
   hrc:      {r:0.28, g:0.09, b:0.07},
   crux:     {r:0.26, g:0.14, b:0.05},
-  projects: {r:0.09, g:0.18, b:0.14},
-  about:    {r:0.22, g:0.16, b:0.05}
+  projects: {r:0.09, g:0.18, b:0.14}
 };
 
 function reactTo(b){
@@ -997,7 +951,7 @@ document.getElementById('panelScrim').addEventListener('click', goHome);
 const reading = document.getElementById('reading');
 const readingBody = document.getElementById('readingBody');
 const readingClose = document.getElementById('readingClose');
-const ORDER = ['about','rtx','ast','vfd','hrc','crux','projects'];
+const ORDER = ['rtx','ast','vfd','hrc','crux','projects'];
 
 function showReading(){
   if(reading.classList.contains('open')) return;
