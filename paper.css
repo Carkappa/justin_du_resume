@@ -8,7 +8,8 @@
   --paper:#f2ece0; --paper-2:#eae2d2; --paper-3:#e3d9c6;
   --ink:#1b2733; --ink-2:#3d4c5c; --ink-3:#6b7887; --ink-4:#9aa4ae;
   --red:#c0443a; --blue:#2f5d8f; --yellow:#e0ae37; --green:#4b7c58;
-  --hand:'Caveat',cursive; --note:'Kalam',cursive; --body:'Inter',sans-serif;
+  --hand:'Caveat','Bradley Hand','Segoe Print',cursive; --note:'Kalam','Bradley Hand','Segoe Print',cursive;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   /* the classic hand-drawn box: uneven radii on both axes */
   --wobble:255px 15px 225px 15px/15px 225px 15px 255px;
   --wobble-2:15px 225px 15px 255px/225px 15px 255px 15px;
@@ -202,10 +203,16 @@ html.js .rise{opacity:0; transform:translateY(18px); transition:opacity .6s ease
 html.js .rise.in{opacity:1; transform:none;}
 
 @media (max-width:700px){
-  #topbar{padding:12px 16px; gap:10px;}
-  #topbar nav{gap:12px;}
-  .tlink{font-size:13px;}
+  #topbar{padding:12px 16px; gap:14px; justify-content:flex-start;}
+  /* one line that scrolls sideways, instead of wrapping into a two-storey bar */
+  #topbar nav{gap:14px; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; min-width:0;}
+  #topbar nav::-webkit-scrollbar{display:none;}
+  #topbar > .hbtn{display:none;}          /* "Resume" in the nav already gets you there */
+  .tlink{font-size:13px; white-space:nowrap;}
   .mark{font-size:24px;}
+  .grid3{grid-template-columns:repeat(2,1fr); gap:12px;}
+  .stat-box{padding:16px 10px;}
+  .stat-box b{font-size:2.1rem;}
   .sheet{padding:36px 20px 90px;}
   .nums{gap:22px;}
   .num b{font-size:38px;}

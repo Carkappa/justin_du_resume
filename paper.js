@@ -33,6 +33,15 @@
     }).join('');
   });
 
+  /* Publish the top bar's real height so sticky things can sit flush under it. */
+  const bar = document.getElementById('topbar');
+  if(bar){
+    const setBar = ()=>document.documentElement.style.setProperty('--topbar-h', bar.offsetHeight + 'px');
+    setBar();
+    window.addEventListener('resize', setBar, {passive:true});
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(setBar);
+  }
+
   /* Reading rail */
   const rail = document.getElementById('rail');
   if(rail){

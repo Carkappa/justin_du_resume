@@ -4,7 +4,27 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Jun "Justin" Du — Field Notebook</title>
-<meta name="description" content="The field notebook of Jun (Justin) Du — CS at Texas A&M. Computer vision, data engineering, platform engineering. Poke around."/>
+<meta name="description" content="The field notebook of Jun (Justin) Du — CS at Texas A&amp;M, class of 2027, looking for full-time roles. Computer vision, data engineering, platform engineering. Poke around."/>
+<meta name="theme-color" content="#f2ece0"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="canonical" href="https://carkappa.github.io/justin_du_resume/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Jun “Justin” Du"/>
+<meta property="og:title" content="Jun “Justin” Du — Field Notebook"/>
+<meta property="og:description" content="CS at Texas A&amp;M, class of 2027 — looking for full-time roles. Computer vision, data engineering, platform engineering, drawn out as a notebook you can poke around in."/>
+<meta property="og:url" content="https://carkappa.github.io/justin_du_resume/"/>
+<meta property="og:image" content="https://carkappa.github.io/justin_du_resume/images/og-card.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Jun Du","alternateName":"Justin Du",
+ "url":"https://carkappa.github.io/justin_du_resume/",
+ "description":"Computer Science student at Texas A&M University working on computer vision, data engineering and platform engineering.",
+ "alumniOf":{"@type":"CollegeOrUniversity","name":"Texas A&M University"},
+ "knowsAbout":["Computer vision","Data engineering","Platform engineering","Machine learning"],
+ "sameAs":["https://github.com/Carkappa","https://www.linkedin.com/in/justin-du-79076121b/"]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -13,7 +33,8 @@
     --paper:#f2ece0; --paper-2:#eae2d2; --paper-3:#e3d9c6;
     --ink:#1b2733; --ink-2:#3d4c5c; --ink-3:#6b7887; --ink-4:#9aa4ae;
     --red:#c0443a; --blue:#2f5d8f; --yellow:#e0ae37; --green:#4b7c58;
-    --hand:'Caveat',cursive; --note:'Kalam',cursive; --body:'Inter',sans-serif;
+    --hand:'Caveat','Bradley Hand','Segoe Print',cursive; --note:'Kalam','Bradley Hand','Segoe Print',cursive;
+    --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
   *,*::before,*::after{box-sizing:border-box;}
   html,body{margin:0;padding:0;height:100%;}
@@ -66,12 +87,13 @@
 
   /* ── Stage ── */
   #stage{
-    position:relative; z-index:5; height:100svh; height:100vh;
+    position:relative; z-index:5; height:100vh; height:100svh;
     display:flex; align-items:center; justify-content:center;
+    padding-bottom:48px;                      /* the pinned contact line lives here */
     perspective:1400px; perspective-origin:50% 50%;
   }
   #scene{
-    position:relative; width:min(1180px,94vw); height:min(760px,86vh);
+    position:relative; width:min(1180px,94vw); height:min(760px,calc(100vh - 150px));
     transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.7,.3,1);
   }
 
@@ -80,6 +102,7 @@
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) translateZ(10px);
     text-align:center; width:min(560px,88vw); pointer-events:none;
   }
+  #nameplate h1{margin:0; font:inherit;}
   #nameSvg{width:100%; height:auto; overflow:visible;}
   #nameSvg text{
     font-family:var(--hand); font-size:104px; font-weight:700;
@@ -87,21 +110,32 @@
     stroke-dasharray:1400; stroke-dashoffset:1400;
   }
   .drawn #nameSvg text{
-    animation:draw 2.1s ease forwards, fillIn .8s ease 1.5s forwards;
+    animation:draw 1.5s ease forwards, fillIn .6s ease 1s forwards;
   }
   @keyframes draw{to{stroke-dashoffset:0;}}
   @keyframes fillIn{to{fill-opacity:1; stroke-width:0;}}
 
   #tagline{
-    font-family:var(--note); font-size:16px; color:var(--ink-2);
+    font-family:var(--note); font-size:16px; line-height:1.5; color:var(--ink-2);
     margin-top:2px; opacity:0; transform:translateY(6px);
   }
-  .drawn #tagline{animation:rise .7s ease 2.0s forwards;}
+  #tagline b{display:block; font-weight:700; color:var(--ink);}
+  .drawn #tagline{animation:rise .6s ease 1.2s forwards;}
+  /* the one thing a recruiter needs to know, and a way to act on it */
+  #status{
+    display:inline-flex; align-items:center; gap:9px; margin-top:12px; pointer-events:auto;
+    font-family:var(--note); font-weight:700; font-size:14.5px; color:var(--ink); text-decoration:none;
+    border-bottom:1.6px dashed var(--green); padding-bottom:2px;
+    opacity:0; transform:translateY(6px);
+  }
+  #status i{width:9px; height:9px; border-radius:50%; background:var(--green); flex-shrink:0;}
+  #status:hover{color:var(--red); border-color:var(--red);}
+  .drawn #status{animation:rise .6s ease 1.35s forwards;}
   #hint{
     font-family:var(--note); font-size:15px; color:var(--ink-3);
     margin-top:20px; opacity:0; display:inline-flex; align-items:center; gap:9px;
   }
-  .drawn #hint{animation:rise .7s ease 2.5s forwards;}
+  .drawn #hint{animation:rise .6s ease 1.5s forwards;}
   @keyframes rise{to{opacity:1; transform:translateY(0);}}
   #hint svg{width:44px; height:22px; overflow:visible;}
   #hint path{fill:none; stroke:var(--red); stroke-width:1.8; stroke-linecap:round;}
@@ -110,14 +144,16 @@
   .doodle{
     position:absolute; background:none; border:0; padding:0; cursor:pointer;
     display:flex; flex-direction:column; align-items:center; gap:4px;
-    transform-style:preserve-3d; opacity:0;
+    transform-style:preserve-3d; opacity:0; width:max-content;
     transition:filter .25s ease;
     -webkit-tap-highlight-color:transparent;
   }
   .drawn .doodle{animation:pop .7s cubic-bezier(.2,1.4,.4,1) forwards;}
-  @keyframes pop{from{opacity:0; transform:scale(.55);} to{opacity:1; transform:scale(1);}}
+  /* `scale`, not `transform`: an animated transform would override the inline
+     translate3d that places each doodle at its own depth */
+  @keyframes pop{from{opacity:0; scale:.55;} to{opacity:1; scale:1;}}
   .doodle .art{
-    width:var(--w,140px); height:var(--w,140px);
+    width:calc(var(--w,140px) * var(--k,1)); height:calc(var(--w,140px) * var(--k,1));
     display:block; overflow:visible;
     transition:transform .35s cubic-bezier(.2,1.4,.4,1);
   }
@@ -154,7 +190,8 @@
 
   /* ── Click reactions: every doodle answers in its own way ── */
   .doodle .burst{
-    position:absolute; left:50%; top:0; width:var(--w,140px); height:var(--w,140px);
+    position:absolute; left:50%; top:0;
+    width:calc(var(--w,140px) * var(--k,1)); height:calc(var(--w,140px) * var(--k,1));
     transform:translateX(-50%) scale(.45); opacity:0; pointer-events:none; overflow:visible;
   }
   .doodle .burst circle{fill:none; stroke:var(--red); stroke-width:2.6; stroke-dasharray:7 11; stroke-linecap:round;}
@@ -300,7 +337,7 @@
   #reading h2{font-size:clamp(2rem,5vw,2.9rem);}
 
   /* ── 3D canvas slot ── */
-  #dronewrap{position:relative; width:var(--w,170px); height:var(--w,170px);}
+  #dronewrap{position:relative; width:calc(var(--w,170px) * var(--k,1)); height:calc(var(--w,170px) * var(--k,1));}
   #drone3d{position:absolute; inset:0; width:100%; height:100%;}
 
   /* ── Footer contact ── */
@@ -310,40 +347,84 @@
     padding:16px 24px; font-family:var(--note); font-size:14px; color:var(--ink-3);
     pointer-events:none; opacity:0;
   }
-  .drawn #footnote{animation:rise .8s ease 2.9s forwards;}
+  .drawn #footnote{animation:rise .7s ease 1.9s forwards;}
   #footnote a{pointer-events:auto; color:var(--ink-2); text-decoration:none; border-bottom:1.6px solid var(--ink-4);}
   #footnote a:hover{color:var(--red); border-color:var(--red);}
+
+  /* Second visit this session (or arriving on a deep link): the desk is
+     already drawn — don't make anyone sit through the pen again. */
+  .quick #nameSvg text{animation:none; stroke-dashoffset:0; fill-opacity:1; stroke-width:0;}
+  .quick #tagline,.quick #status,.quick #hint,.quick #footnote{animation:none; opacity:1; transform:none;}
+  .quick .doodle{animation:none; opacity:1;}
+
+  /* While a sheet covers the desk, stop painting what nobody can see. */
+  .asleep #stage,.asleep #fluid,.asleep #footnote{visibility:hidden;}
+
+  .short{display:none;}
 
   /* ── Boil filter target ── */
   .boil{filter:url(#boil);}
 
-  /* ── Mobile ── */
-  @media (max-width:860px){
-    #stage{height:auto; min-height:100svh; padding:96px 0 120px; align-items:flex-start;}
+  /* Short laptop screens: same desk, slightly smaller drawings. */
+  @media (max-height:800px){ :root{--k:.84;} #nameplate{width:min(500px,88vw);} #status{margin-top:8px;} #hint{margin-top:10px;} }
+  @media (max-height:700px){ :root{--k:.72;} #nameplate{width:min(440px,88vw);} }
+
+  /* ── Grid layout: phones, tablets, and any window too small to scatter in.
+        Keep this query in sync with `mq` in the script below. ── */
+  @media (max-width:1100px), (max-height:620px){
+    :root{--k:1;}
+    #stage{height:auto; min-height:100svh; padding:96px 0 40px; align-items:flex-start;}
     body{overflow-y:auto;}
-    #scene{height:auto; width:100%; padding:0 18px; display:grid;
+    #scene{height:auto; width:100%; max-width:860px; margin:0 auto; padding:0 18px; display:grid;
            grid-template-columns:repeat(2,1fr); gap:26px 10px; transform:none !important;}
-    #nameplate{position:static; transform:none; grid-column:1/-1; width:auto; margin-bottom:14px;}
+    #nameplate{position:static; transform:none; grid-column:1/-1; width:min(560px,100%); margin:0 auto 14px;}
     #nameSvg text{font-size:96px;}
-    .doodle{position:relative !important; left:auto !important; top:auto !important; transform:none !important;}
+    .doodle{position:relative !important; left:auto !important; top:auto !important; transform:none !important;
+            justify-self:center; max-width:100%;}
     .doodle .tack{top:-2px; right:14px;}
     .doodle .art{--w:104px !important;}
     #dronewrap{--w:104px !important;}
     .doodle .lbl{font-size:13.5px; white-space:normal;}
     .doodle .sub{font-size:11.5px; white-space:normal;}
-    #footnote{position:static; flex-wrap:wrap; gap:14px;}
+    #footnote{position:relative; z-index:6; flex-wrap:wrap; gap:14px; padding:10px 24px 40px;}
+    #topbar{position:absolute;}             /* scrolls away instead of floating over the doodles */
     .sheet{padding:96px 22px 110px;}
+  }
+  @media (min-width:640px) and (max-width:1100px), (min-width:640px) and (max-height:620px){
+    #scene{grid-template-columns:repeat(4,1fr);}
+  }
+  /* Small phones: the top bar has to fit two buttons and the mark. */
+  @media (max-width:480px){
+    #topbar{padding:14px 14px;}
+    .topright{gap:8px;}
+    .hbtn{font-size:13px; padding:8px 12px;}
+    .long{display:none;} .short{display:inline;}
+    #panelClose,#readingClose{right:14px !important; top:14px !important;}
   }
 
   @media (prefers-reduced-motion:reduce){
     *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;}
     #nameSvg text{stroke-dashoffset:0; fill-opacity:1; stroke-width:0;}
     .doodle{opacity:1;}
-    #tagline,#hint,#footnote{opacity:1; transform:none;}
+    #tagline,#status,#hint,#footnote{opacity:1; transform:none;}
     .boil{filter:none;}
     #fluid{display:none;}
   }
 </style>
+<!-- Without JavaScript nothing would ever get drawn: show the name and lay
+     every section out as a plain readable page instead of a blank sheet. -->
+<noscript><style>
+  body{overflow:auto;}
+  #nameSvg text{stroke-dashoffset:0; fill-opacity:1; stroke-width:0;}
+  #tagline,#status,#footnote{opacity:1; transform:none;}
+  #hint,#fluid,#showAll{display:none;}
+  #stage{height:auto; min-height:0; padding:96px 0 10px;}
+  #scene{height:auto;}
+  #nameplate{position:static; transform:none; margin:0 auto;}
+  #footnote{position:static;}
+  #contents{display:block !important; position:relative; z-index:5;}
+  #contents .sheet{padding:34px 30px; border-top:2px dashed var(--paper-3);}
+</style></noscript>
 </head>
 <body>
 
@@ -371,13 +452,13 @@
 
 <!-- ═══ Top bar ═══ -->
 <header id="topbar">
-  <a href="#" class="mark" id="homeMark">JD<span>.</span></a>
+  <a href="./" class="mark" id="homeMark" aria-label="Jun Du — home">JD<span>.</span></a>
   <div class="topright">
     <button class="hbtn boil" id="showAll" type="button">
       <svg class="box" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M4 7 C 20 3, 55 4, 96 6 C 97 16, 96 27, 95 34 C 66 37, 30 36, 5 34 C 3 25, 3 15, 4 7 Z"/></svg>
-      Just show me everything
+      <span class="long">Just show me everything</span><span class="short">Show it all</span>
     </button>
-    <a class="hbtn filled boil" href="JunDu_s_Resume.pdf" download>
+    <a class="hbtn filled boil" href="JunDu_s_Resume.pdf" download="Jun_Du_Resume.pdf">
       <svg class="box" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M4 7 C 20 3, 55 4, 96 6 C 97 16, 96 27, 95 34 C 66 37, 30 36, 5 34 C 3 25, 3 15, 4 7 Z"/></svg>
       Resume PDF
     </a>
@@ -389,10 +470,12 @@
   <div id="scene">
 
     <div id="nameplate">
-      <svg id="nameSvg" viewBox="0 0 560 150" aria-label="Jun Justin Du">
+      <h1><svg id="nameSvg" viewBox="0 0 560 150" role="img" aria-label="Jun “Justin” Du">
         <text x="280" y="100" text-anchor="middle">Jun “Justin” Du</text>
-      </svg>
-      <div id="tagline">computer vision · data plumbing · the layer underneath</div>
+      </svg></h1>
+      <div id="tagline"><b>CS at Texas A&amp;M · class of 2027</b>computer vision · data plumbing · the layer underneath</div>
+      <a id="status" href="mailto:justindujun@gmail.com?subject=Full-time%20role"><i></i>looking for full-time roles · graduating May 2027</a>
+      <br/>
       <div id="hint">
         <svg viewBox="0 0 44 22" class="boil"><path d="M2 12 C 12 4, 26 6, 40 11 M33 5 L41 11 L32 17"/></svg>
         nothing's on this page — poke a doodle
@@ -407,7 +490,8 @@
   <a href="mailto:justindujun@gmail.com">justindujun@gmail.com</a>
   <a href="https://github.com/Carkappa" target="_blank" rel="noopener">GitHub</a>
   <a href="https://www.linkedin.com/in/justin-du-79076121b/" target="_blank" rel="noopener">LinkedIn</a>
-  <a href="#" id="footReading">read it all as one page</a>
+  <a href="resume.html">filterable resume</a>
+  <a href="#all" id="footReading">read it all as one page</a>
 </div>
 
 <!-- ═══ Panel ═══ -->
@@ -425,7 +509,7 @@
 <div id="reading">
   <div class="sheet">
     <h1 class="doc-h">Jun “Justin” Du</h1>
-    <p class="doc-sub">Everything, flattened out. College Station, TX · justindujun@gmail.com · (346) 978-6515</p>
+    <p class="doc-sub">Everything, flattened out. Looking for full-time roles for after May 2027 · <a class="morelink" href="mailto:justindujun@gmail.com">justindujun@gmail.com</a></p>
     <div id="readingBody"></div>
   </div>
 </div>
@@ -437,21 +521,21 @@
 <!-- ═══ Content source (hidden) ═══ -->
 <div id="contents" hidden>
 
-  <article data-key="rtx">
-    <div class="kicker">Incoming · Fall 2026</div>
+  <article class="sheet" data-key="rtx">
+    <div class="kicker">Current · Fall 2026</div>
     <h2>Platform Engineer Co-op</h2>
     <p class="where">Raytheon Technologies · Richardson, TX</p>
-    <p class="when">Fall 2026 · Top Secret clearance in process</p>
+    <p class="when">Fall 2026 – present · Top Secret clearance in process</p>
     <p class="lede">Most engineering jobs are about the product. This one is about <em>the ground the product stands on</em> — the build systems, the deploy paths, the environments that either work at 2am or don't.</p>
     <ul>
-      <li>Selected for a platform engineering co-op supporting internal developer platforms and infrastructure tooling for defense systems software teams.</li>
+      <li>Platform engineering co-op supporting internal developer platforms and infrastructure tooling for defense systems software teams.</li>
       <li>Working on the layer engineers build <em>on</em> rather than the thing they ship — build and deployment tooling, environment reliability, and paved paths that let mission software teams move without fighting their infrastructure.</li>
       <li>Top Secret clearance in process.</li>
     </ul>
     <div class="chips" data-chips="Platform Engineering,Infrastructure,Developer Tooling,DevOps"></div>
   </article>
 
-  <article data-key="ast">
+  <article class="sheet" data-key="ast">
     <div class="kicker">Internship</div>
     <h2>Data Engineer</h2>
     <p class="where">AST SpaceMobile · Miami, FL</p>
@@ -472,7 +556,7 @@
     <div class="chips" data-chips="Next.js 16,React 19,TypeScript,Tailwind 4,Recharts,Prisma 7,MariaDB,SQL,ETL,PCB Design"></div>
   </article>
 
-  <article data-key="vfd">
+  <article class="sheet" data-key="vfd">
     <div class="kicker">Current</div>
     <h2>Autonomous Software Engineer</h2>
     <p class="where">Texas A&amp;M Vertical Flight Design · College Station, TX</p>
@@ -486,7 +570,7 @@
     <div class="chips" data-chips="Autonomy,UAV / SUAS,Systems Engineering,Python"></div>
   </article>
 
-  <article data-key="hrc">
+  <article class="sheet" data-key="hrc">
     <div class="kicker">Undergraduate Research</div>
     <h2>Computer Vision Research</h2>
     <p class="where">Texas A&amp;M Hazard Reduction &amp; Recovery Center</p>
@@ -495,7 +579,7 @@
     <div class="nums">
       <div class="num"><b>3k+</b><span>images</span></div>
       <div class="num"><b>5k+</b><span>annotations</span></div>
-      <div class="num"><b>A100</b><span>training hardware</span></div>
+      <div class="num"><b>80%</b><span>mAP@0.5</span></div>
     </div>
     <ul>
       <li>Trained YOLOv11 object detection models in PyTorch to identify physical disorder indicators — litter, graffiti, abandoned buildings — in post-hurricane street-level imagery.</li>
@@ -506,7 +590,7 @@
     <p><a class="morelink" href="experience-hrc-detail.html">Read the long version →</a></p>
   </article>
 
-  <article data-key="crux">
+  <article class="sheet" data-key="crux">
     <div class="kicker">Internship</div>
     <h2>Machine Learning &amp; AI</h2>
     <p class="where">Crux AI · College Station, TX</p>
@@ -527,7 +611,7 @@
     <p><a class="morelink" href="experience-crux-detail.html">Read the long version →</a></p>
   </article>
 
-  <article data-key="projects">
+  <article class="sheet" data-key="projects">
     <div class="kicker">Side of the desk</div>
     <h2>Things I built anyway</h2>
     <p class="where">Personal &amp; team projects</p>
@@ -545,12 +629,13 @@
     <div class="chips" data-chips="React Native,TypeScript,React,Node.js,Flutter,Dart"></div>
   </article>
 
-  <article data-key="about">
+  <article class="sheet" data-key="about">
     <div class="kicker">The person</div>
     <h2>Who's drawing this</h2>
     <p class="where">B.S. Computer Science · Texas A&amp;M University</p>
     <p class="when">Expected May 2027 · GPA 3.71</p>
     <p class="lede">The pattern across everything above is the same: take something unstructured — hurricane imagery, climbing video, a firehose of battery test data — and turn it into something an engineer can act on. Sometimes that's a model. Sometimes it's a dashboard, an ETL pipeline, or <em>a circuit board</em>.</p>
+    <div class="aside">Right now: platform engineering co-op at Raytheon — and <b>looking for full-time roles</b> for after I graduate in May 2027. <a class="morelink" href="mailto:justindujun@gmail.com?subject=Full-time%20role">Say hi →</a></div>
     <div class="nums">
       <div class="num"><b>3.71</b><span>cumulative GPA</span></div>
       <div class="num"><b>2027</b><span>expected graduation</span></div>
@@ -631,18 +716,20 @@ const ART = {
          <path class="hot" d="M74 20 L88 20 M81 13 L81 27"/>`
 };
 
+/* x / y place each doodle's centre, as a % of the scene; z is real depth. */
 const DOODLES = [
-  {key:'rtx',      label:'Raytheon Technologies', sub:'incoming · platform',x:11, y:19, z:-160, w:132, fresh:true},
-  {key:'ast',      label:'AST SpaceMobile',    sub:'satellite battery data',x:73, y:14, z:-40,  w:158},
-  {key:'vfd',      label:'Vertical Flight',    sub:'autonomy · SUAS 2026',  x:88, y:52, z:-210, w:150, three:true},
-  {key:'hrc',      label:'Hurricane research', sub:'computer vision',       x:7,  y:58, z:-70,  w:150},
-  {key:'crux',     label:'Crux AI',            sub:'climbing, seen by a model', x:26, y:78, z:-120, w:140},
-  {key:'projects', label:'Side projects',      sub:'10k+ downloads',        x:62, y:80, z:-30,  w:130},
-  {key:'about',    label:'About me',           sub:'the toolbox',           x:52, y:5,  z:-260, w:120}
+  {key:'rtx',      label:'Raytheon Technologies', sub:'current · platform', x:16, y:30, z:-100, w:132, fresh:true},
+  {key:'ast',      label:'AST SpaceMobile',    sub:'satellite battery data',x:81, y:26, z:-30,  w:158},
+  {key:'vfd',      label:'Vertical Flight',    sub:'autonomy · SUAS 2026',  x:92, y:66, z:-130, w:150, three:true},
+  {key:'hrc',      label:'Hurricane research', sub:'computer vision',       x:11, y:72, z:-50,  w:150},
+  {key:'crux',     label:'Crux AI',            sub:'climbing, seen by a model', x:31, y:89, z:-80, w:140},
+  {key:'projects', label:'Side projects',      sub:'10k+ downloads',        x:69, y:89, z:-20,  w:130},
+  {key:'about',    label:'About me',           sub:'the toolbox',           x:57, y:13, z:-150, w:120}
 ];
+const KEYS = DOODLES.map(d=>d.key);
 
 const scene = document.getElementById('scene');
-const mq = window.matchMedia('(max-width:860px)');
+const mq = window.matchMedia('(max-width:1100px), (max-height:620px)');   // same query as the grid-layout CSS
 const isNarrow = () => mq.matches;
 
 DOODLES.forEach((d,i)=>{
@@ -652,7 +739,7 @@ DOODLES.forEach((d,i)=>{
   b.dataset.key = d.key;
   b.dataset.i = i;
   b.setAttribute('aria-label', d.label + ' — ' + d.sub);
-  b.style.animationDelay = (2.6 + i*0.12) + 's';
+  b.style.animationDelay = (1.3 + i*0.09) + 's';
 
   const art = (d.three)
     ? `<div id="dronewrap" style="--w:${d.w}px"><canvas id="drone3d"></canvas>
@@ -689,6 +776,25 @@ layoutDoodles();
 mq.addEventListener('change', layoutDoodles);
 window.addEventListener('resize', layoutDoodles, {passive:true});
 
+/* Set by the panel / reading mode; the three render loops below all honour it. */
+let asleep = false;
+window.deskAsleep = () => asleep || document.hidden;
+
+/* If the handwriting font is slow or blocked, the fallback is wider and the
+   name would spill off a phone screen — squeeze it back into its box. */
+{
+  const nameText = document.querySelector('#nameSvg text');
+  const fitName = ()=>{
+    nameText.removeAttribute('textLength');
+    if(nameText.getComputedTextLength() > 546){
+      nameText.setAttribute('textLength', '540');
+      nameText.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+    }
+  };
+  fitName();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitName);
+}
+
 /* Sketchy boxes around .hbtn already inline; give chips their scribbled outline */
 function drawChips(root){
   root.querySelectorAll('.chips[data-chips]').forEach(box=>{
@@ -715,7 +821,8 @@ function drawChips(root){
   }, {passive:true});
   (function loop(){
     requestAnimationFrame(loop);
-    if(isNarrow()) return;                       // grid layout: no tilt
+    if(isNarrow() || window.deskAsleep()) return;   // grid layout or covered: no tilt
+    if(Math.abs(tx-cx) < .0005 && Math.abs(ty-cy) < .0005) return;   // settled — nothing to repaint
     cx += (tx-cx)*.055; cy += (ty-cy)*.055;
     scene.style.transform = `rotateY(${cx*13}deg) rotateX(${-cy*10}deg) translateZ(40px)`;
   })();
@@ -751,9 +858,29 @@ function contentFor(key){
   return src ? src.innerHTML : '<p>Nothing here yet.</p>';
 }
 
-function openPanel(key, ox, oy){
-  lastFocus = document.activeElement;
+const stage    = document.getElementById('stage');
+const topbar   = document.getElementById('topbar');
+const footnote = document.getElementById('footnote');
+let openKey = null, sleepTimer = 0;
+
+/* Everything behind an open sheet is taken out of the tab order and, once
+   the reveal has finished, put to sleep so it stops costing frames. */
+function coverDesk(on, delay){
+  [stage, topbar, footnote].forEach(el=>{ el.inert = on; });
+  clearTimeout(sleepTimer);
+  if(on){
+    sleepTimer = setTimeout(()=>{ asleep = true; document.body.classList.add('asleep'); }, delay || 0);
+  }else{
+    asleep = false; document.body.classList.remove('asleep');
+  }
+}
+
+function showPanel(key, ox, oy){
+  if(openKey === null && !reading.classList.contains('open')) lastFocus = document.activeElement;
+  openKey = key;
   panelBody.innerHTML = `<div class="sheet">${contentFor(key)}</div>`;
+  const h = panelBody.querySelector('h2');
+  panelRoot.setAttribute('aria-label', h ? h.textContent : 'Detail');
   drawChips(panelBody);
   stagger(panelBody);
   panel.style.setProperty('--ox', ox + 'px');
@@ -762,6 +889,7 @@ function openPanel(key, ox, oy){
   panelRoot.classList.add('open');
   panelClose.style.display = 'block';
   document.body.style.overflow = 'hidden';
+  coverDesk(true, 950);
 
   // ragged ink ring chasing the clip edge
   const max = Math.hypot(Math.max(ox, innerWidth-ox), Math.max(oy, innerHeight-oy)) * 1.6;
@@ -776,15 +904,46 @@ function openPanel(key, ox, oy){
     if(p<1) ringAnim = requestAnimationFrame(ring);
   })(t0);
 
-  setTimeout(()=>panelClose.focus(), 500);
+  setTimeout(()=>{ if(openKey) panelClose.focus(); }, 500);
 }
 
-function closePanel(){
+function hidePanel(){
+  if(openKey === null) return;
+  openKey = null;
   panelRoot.classList.remove('open');
   panelClose.style.display = 'none';
-  document.body.style.overflow = '';
-  if(lastFocus) lastFocus.focus();
+  if(!reading.classList.contains('open')){
+    document.body.style.overflow = '';
+    coverDesk(false);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
 }
+
+/* ── Routing: every sheet has an address (#ast, #crux … #all), so it can be
+      linked to, and the browser's Back button closes it instead of leaving. ── */
+function centreOf(key){
+  const b = scene.querySelector(`.doodle[data-key="${key}"]`);
+  if(!b) return [innerWidth/2, innerHeight/2];
+  const r = b.getBoundingClientRect();
+  return [r.left + r.width/2, r.top + r.height/2];
+}
+function route(){
+  const k = decodeURIComponent(location.hash.slice(1));
+  if(k === 'all'){ hidePanel(); showReading(); }
+  else if(KEYS.includes(k)){
+    hideReading();
+    if(openKey !== k) showPanel(k, ...centreOf(k));
+  }else{ hidePanel(); hideReading(); }
+}
+function go(hash){                       // open something, leaving a history entry to come back to
+  history.pushState({desk:true}, '', '#' + hash);
+}
+function goHome(){                       // close whatever is open
+  if(history.state && history.state.desk) history.back();          // → popstate → route()
+  else{ history.replaceState(null, '', location.pathname + location.search); route(); }
+}
+window.addEventListener('popstate', route);
+window.addEventListener('hashchange', route);
 
 /* Each doodle has a signature reaction; the panel follows just behind it
    so the animation reads as cause, not decoration. */
@@ -827,10 +986,10 @@ scene.addEventListener('click', e=>{
   // throw a matching splash of ink into the simulation
   if(window.inkSplat) window.inkSplat(cx, cy, INK_BY_KEY[b.dataset.key]);
 
-  setTimeout(()=>openPanel(b.dataset.key, cx, cy), 230);
+  setTimeout(()=>{ go(b.dataset.key); showPanel(b.dataset.key, cx, cy); }, 230);
 });
-panelClose.addEventListener('click', closePanel);
-document.getElementById('panelScrim').addEventListener('click', closePanel);
+panelClose.addEventListener('click', goHome);
+document.getElementById('panelScrim').addEventListener('click', goHome);
 
 /* ═══════════════════════════════════════════════════════════
    4 · READING MODE — the "just show me everything" door
@@ -840,9 +999,11 @@ const readingBody = document.getElementById('readingBody');
 const readingClose = document.getElementById('readingClose');
 const ORDER = ['about','rtx','ast','vfd','hrc','crux','projects'];
 
-function openReading(){
+function showReading(){
+  if(reading.classList.contains('open')) return;
+  if(openKey === null) lastFocus = document.activeElement;
   if(!readingBody.dataset.built){
-    readingBody.innerHTML = ORDER.map(k=>`<section class="block">${contentFor(k)}</section>`).join('');
+    readingBody.innerHTML = ORDER.map(k=>`<section class="block" id="read-${k}">${contentFor(k)}</section>`).join('');
     drawChips(readingBody);
     readingBody.dataset.built = '1';
   }
@@ -850,26 +1011,42 @@ function openReading(){
   reading.scrollTop = 0;
   readingClose.style.display = 'block';
   document.body.style.overflow = 'hidden';
+  coverDesk(true, 0);
+  readingClose.focus();
 }
-document.getElementById('showAll').addEventListener('click', openReading);
-document.getElementById('footReading').addEventListener('click', e=>{ e.preventDefault(); openReading(); });
-readingClose.addEventListener('click', ()=>{
+function hideReading(){
+  if(!reading.classList.contains('open')) return;
   reading.classList.remove('open');
   readingClose.style.display = 'none';
-  document.body.style.overflow = '';
-});
+  if(openKey === null){
+    document.body.style.overflow = '';
+    coverDesk(false);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+}
+function openReading(e){
+  if(e) e.preventDefault();
+  go('all'); showReading();
+}
+document.getElementById('showAll').addEventListener('click', openReading);
+document.getElementById('footReading').addEventListener('click', openReading);
+readingClose.addEventListener('click', goHome);
 
 document.addEventListener('keydown', e=>{
-  if(e.key === 'Escape'){
-    if(panelRoot.classList.contains('open')) closePanel();
-    else if(reading.classList.contains('open')) readingClose.click();
-  }
+  if(e.key === 'Escape' && (openKey !== null || reading.classList.contains('open'))) goHome();
 });
 document.getElementById('homeMark').addEventListener('click', e=>{
   e.preventDefault();
-  if(panelRoot.classList.contains('open')) closePanel();
-  if(reading.classList.contains('open')) readingClose.click();
+  if(openKey !== null || reading.classList.contains('open')) goHome();
 });
+
+/* Returning visitors (and anyone arriving on a deep link) skip the intro. */
+{
+  let seen = false;
+  try{ seen = !!sessionStorage.getItem('desk-seen'); sessionStorage.setItem('desk-seen', '1'); }catch(_){}
+  if(seen || location.hash.length > 1) document.body.classList.add('quick');
+}
+route();          // honour #ast, #all … on first load
 
 /* kick off the pen */
 requestAnimationFrame(()=>document.body.classList.add('drawn'));
@@ -1210,6 +1387,11 @@ requestAnimationFrame(()=>document.body.classList.add('drawn'));
 
   let last = performance.now(), acc = 0;
   function step(){
+    if(window.deskAsleep && window.deskAsleep()){      // covered by a sheet: skip the solve
+      last = performance.now();
+      requestAnimationFrame(step);
+      return;
+    }
     const now = performance.now();
     let dt = Math.min((now - last)/1000, 0.0166);
     last = now;
@@ -1306,7 +1488,7 @@ requestAnimationFrame(()=>document.body.classList.add('drawn'));
 <script type="module">
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
 try{
-  const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js');
+  const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.min.js');
   const canvas = document.getElementById('drone3d');
   if(canvas){
     const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
@@ -1382,6 +1564,8 @@ try{
 
     const clock = new THREE.Clock();
     (function tick(){
+      requestAnimationFrame(tick);
+      if(window.deskAsleep && window.deskAsleep()) return;
       const t = clock.getElapsedTime();
       inkMat.uniforms.uTime.value = t;
       rig.rotation.y = t * 0.42;
@@ -1389,7 +1573,6 @@ try{
       rig.position.y = Math.sin(t * 0.9) * 0.12;
       rotors.forEach(r => r.rotation.x = t * 9);
       renderer.render(scene3, cam);
-      requestAnimationFrame(tick);
     })();
 
     const fb = document.getElementById('droneFallback');

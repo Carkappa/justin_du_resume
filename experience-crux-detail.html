@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Crux AI — Jun "Justin" Du</title>
 <meta name="description" content="Turning raw climbing video into structured movement data with YOLOv11 detection and pose estimation, then into coaching advice with an LLM layer."/>
+<meta name="theme-color" content="#f2ece0"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="canonical" href="https://carkappa.github.io/justin_du_resume/experience-crux-detail.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="Jun “Justin” Du"/>
+<meta property="og:title" content="Crux AI — teaching a model to watch climbing"/>
+<meta property="og:description" content="Turning raw climbing video into structured movement data with YOLO detection and pose estimation, then into coaching advice with an LLM layer."/>
+<meta property="og:url" content="https://carkappa.github.io/justin_du_resume/experience-crux-detail.html"/>
+<meta property="og:image" content="https://carkappa.github.io/justin_du_resume/images/og-card.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -26,7 +36,7 @@
   .flow .arr{display:flex; align-items:center; color:var(--red); font-size:22px; font-family:var(--hand);}
   @media (max-width:700px){ .flow .arr{transform:rotate(90deg); justify-content:center; width:100%;} }
   /* the clips are portrait — cap the height so a pair doesn't run off the screen */
-  figure video.paper{max-height:62vh; width:auto; max-width:100%; margin:0 auto;}
+  figure video.paper{max-height:62vh; width:auto; height:auto; max-width:100%; margin:0 auto; aspect-ratio:480/854; object-fit:cover;}
 </style>
 </head>
 <body>
@@ -52,7 +62,7 @@
     <a class="tlink on" href="experience-crux-detail.html">Crux AI</a>
     <a class="tlink" href="resume.html">Resume</a>
   </nav>
-  <a class="hbtn filled" href="JunDu_s_Resume.pdf" download>Resume PDF</a>
+  <a class="hbtn filled" href="JunDu_s_Resume.pdf" download="Jun_Du_Resume.pdf">Resume PDF</a>
 </header>
 
 <main class="sheet">
@@ -87,6 +97,34 @@
     <div class="num"><b>~95%</b><span>hold detection accuracy</span></div>
     <div class="num"><b>5</b><span>hold classes</span></div>
     <div class="num"><b>17</b><span>pose keypoints</span></div>
+  </div>
+
+  <!-- ═══ Watch it work ═══ -->
+  <div class="rule rise"><h2 class="head">Watch it work</h2></div>
+
+  <p class="rise" style="margin:-6px 0 22px;">
+    The same forty seconds, before and after the pipeline sees it. On the right, every circle marks a
+    detected hold, the skeleton overlay is the pose model, and the panel top-left is movement telemetry
+    computed live — arm extension, balance, phase.
+  </p>
+
+  <div class="grid2 rise">
+    <figure>
+      <video class="paper" controls preload="none" playsinline muted width="480" height="854"
+             poster="images/crux-raw-poster.jpg" aria-label="Raw climbing footage">
+        <source src="originalVideo.mp4" type="video/mp4"/>
+        <a href="originalVideo.mp4">Download the raw footage</a>
+      </video>
+      <figcaption>Raw footage — what the camera saw.</figcaption>
+    </figure>
+    <figure>
+      <video class="paper" controls preload="none" playsinline muted width="480" height="854"
+             poster="images/crux-annotated-poster.jpg" aria-label="The same footage annotated with detected holds, pose and movement metrics">
+        <source src="annotatedVideo.mp4" type="video/mp4"/>
+        <a href="annotatedVideo.mp4">Download the annotated footage</a>
+      </video>
+      <figcaption>What the model saw — holds, pose, and live movement metrics.</figcaption>
+    </figure>
   </div>
 
   <!-- ═══ Pipeline ═══ -->
@@ -137,12 +175,12 @@
   </div>
 
   <figure class="rise">
-    <img src="images/onboarding.png" alt="Crux AI onboarding interface" loading="lazy"/>
+    <img src="images/onboarding.webp" alt="Crux AI onboarding interface" width="1587" height="903" loading="lazy" decoding="async"/>
     <figcaption>Onboarding — where an athlete's session starts.</figcaption>
   </figure>
 
   <figure class="rise">
-    <img src="images/coachingandtimeline.png" alt="Coaching view and movement timeline" loading="lazy"/>
+    <img src="images/coachingandtimeline.webp" alt="Coaching view and movement timeline" width="1278" height="948" loading="lazy" decoding="async"/>
     <figcaption>The coaching view: hold transitions laid out on a timeline.</figcaption>
   </figure>
 
@@ -188,43 +226,6 @@
   <div class="rise">
     <h3 class="sub">Tools</h3>
     <div class="chips" data-chips="PyTorch,Ultralytics YOLOv11,Pose Estimation,Roboflow,OpenCV,Docker,Azure Container Apps,LLM Integration,Python"></div>
-  </div>
-
-  <!-- ═══ Watch it work ═══ -->
-  <div class="rule rise"><h2 class="head">Watch it work</h2></div>
-
-  <p class="rise" style="margin:-6px 0 22px;">
-    The same forty seconds, before and after the pipeline sees it. On the right, every red circle is a
-    detected hold, the blue skeleton is the pose model, and the panel top-left is movement telemetry
-    computed live — arm extension, balance, phase.
-  </p>
-
-  <div class="grid2 rise">
-    <figure>
-      <video class="paper" controls preload="metadata" playsinline muted>
-        <source src="originalVideo.mp4" type="video/mp4"/>
-        <a href="originalVideo.mp4">Download the raw footage</a>
-      </video>
-      <figcaption>Raw footage — what the camera saw.</figcaption>
-    </figure>
-    <figure>
-      <video class="paper" controls preload="metadata" playsinline muted>
-        <source src="annotatedVideo.mp4" type="video/mp4"/>
-        <a href="annotatedVideo.mp4">Download the annotated footage</a>
-      </video>
-      <figcaption>What the model saw — holds, pose, and live movement metrics.</figcaption>
-    </figure>
-  </div>
-
-  <div class="grid2 rise">
-    <a class="asset" href="images/Frontpage.png" target="_blank" rel="noopener">
-      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
-      <span><b>App frontpage</b><span>Interface screenshot</span></span>
-    </a>
-    <a class="asset" href="images/image.png" target="_blank" rel="noopener">
-      <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
-      <span><b>Detection sample</b><span>Model output still</span></span>
-    </a>
   </div>
 
   <div class="aside rise">
